@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace ToDoApplication
+namespace test
 {
     /// <summary>
     /// Interaction logic for App.xaml

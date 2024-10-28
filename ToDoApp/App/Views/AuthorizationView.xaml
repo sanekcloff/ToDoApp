@@ -1,0 +1,38 @@
+﻿<Window x:Class="ToDoApplication.Views.AuthorizationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoApplication.Views" xmlns:viewmodels="clr-namespace:ToDoApplication.ViewModels" 
+        mc:Ignorable="d"
+        Title="AuthorizationView" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Авторизация">
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="100">
+                    <TextBox Text="{Binding Login}"/>
+                    <TextBox Text="{Binding Password}"/>
+                    <Button Content="Login"
+                            Command="{Binding LoginCommand}"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Регистрация">
+                <StackPanel Orientation="Vertical"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="100">
+                    <TextBox Text="{Binding Firstname}"/>
+                    <TextBox Text="{Binding Lastname}"/>
+                    <TextBox Text="{Binding Middlename}"/>
+                    <TextBox Text="{Binding Login}"/>
+                    <TextBox Text="{Binding Password}"/>
+                    <Button Command="{Binding RegisterCommand}"
+            Content="Register"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
