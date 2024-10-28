@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ToDoApplication.ViewModels;
 
 namespace ToDoApplication.Views
 {
@@ -19,9 +21,12 @@ namespace ToDoApplication.Views
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        MainViewModel viewModel;
+        public MainView(User user)
         {
             InitializeComponent();
+            viewModel = new MainViewModel(user);
+            Title = $"Окно пользователя: {user.Fullname}";
         }
     }
 }

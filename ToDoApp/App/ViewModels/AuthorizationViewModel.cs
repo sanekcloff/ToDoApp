@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ToDoApplication.ViewModels
 {
@@ -17,7 +18,13 @@ namespace ToDoApplication.ViewModels
             {
                 var user = UserService.Find(login, password);
                 if (user != null)
-                    new MainView().ShowDialog();
+                {
+                    var newWindnow = new MainView(user);
+                    var currentWindow = Application.Current.MainWindow;
+                    Application.Current.MainWindow = newWindnow;
+                    newWindnow.Show();
+                    currentWindow.Close();
+                }
 
             });
             RegisterCommand = new RelayCommand(o =>
