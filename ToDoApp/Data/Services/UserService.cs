@@ -1,5 +1,6 @@
 ﻿using Data.Context;
 using Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,11 +13,18 @@ namespace Data.Services
 {
     public static class UserService
     {
-        public static User? Find(string login, string password, AbstractContext context)
+        public static ICollection<User> GetUsers()
         {
-            return context.Users.Where(u => u.Password == password && u.Login == login).FirstOrDefault();
+            return DbWorker.AbstractContext.Users
+                .Include(u => u.AssignedObjectives)
+                .Include(u => u.CreatedObjectives)
+                .ToList();
         }
-        public static void AddUser(string lastName, string firstName, string middleName, string login, string password, AbstractContext context)
+        public static User? Find(string login, string password)
+        {
+            return DbWorker.AbstractContext.Users.Where(u => u.Password == password && u.Login == login).Include(u=>u.AssignedObjectives).Include(u => u.CreatedObjectives).FirstOrDefault();
+        }
+        public static void AddUser(string lastName, string firstName, string middleName, string login, string password)
         {
             var user = new User
             {
@@ -30,16 +38,16 @@ namespace Data.Services
             };
             try
             {
-                context.Users.Add(user);
-                context.SaveChanges();
-                Debug.WriteLine($"Пользователь добавлен! {context.GetType().Name}");
+                DbWorker.AbstractContext.Users.Add(user);
+                DbWorker.AbstractContext.SaveChanges();
+                Debug.WriteLine($"Пользователь добавлен! {DbWorker.AbstractContext.GetType().Name}");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
         }
-        public static void UpdateUser(User user, string lastName, string firstName, string middleName, string login, string password, AbstractContext context)
+        public static void UpdateUser(User user, string lastName, string firstName, string middleName, string login, string password)
         {
             user.Lastname = lastName;
             user.Firstname = firstName;
@@ -48,34 +56,34 @@ namespace Data.Services
             user.Password = password;
             try
             {
-                context.Users.Update(user);
-                context.SaveChanges();
-                Debug.WriteLine($"Пользователь обновлён! {context.GetType().Name}");
+                DbWorker.AbstractContext.Users.Update(user);
+                DbWorker.AbstractContext.SaveChanges();
+                Debug.WriteLine($"Пользователь обновлён! {DbWorker.AbstractContext.GetType().Name}");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
         }
-        public static void DeleteUser(User user, AbstractContext context)
+        public static void DeleteUser(User user)
         {
             try
             {
-                context.Users.Remove(user);
-                context.SaveChanges();
-                Debug.WriteLine($"Пользователь удалён! {context.GetType().Name}");
+                DbWorker.AbstractContext.Users.Remove(user);
+                DbWorker.AbstractContext.SaveChanges();
+                Debug.WriteLine($"Пользователь удалён! {DbWorker.AbstractContext.GetType().Name}");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
         }
-        public static void Hide(User user, AbstractContext context)
+        public static void Hide(User user)
         {
             user.IsDeleted = true;
-            context.Users.Update(user);
-            context.SaveChanges();
-            Debug.WriteLine($"Пользователь скрыт! {context.GetType().Name}");
+            DbWorker.AbstractContext.Users.Update(user);
+            DbWorker.AbstractContext.SaveChanges();
+            Debug.WriteLine($"Пользователь скрыт! {DbWorker.AbstractContext.GetType().Name}");
         }
     }
 }

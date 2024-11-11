@@ -6,7 +6,97 @@
         xmlns:local="clr-namespace:ToDoApplication.Views"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
-    <Grid>
+    <TabControl>
         
-    </Grid>
+        <TabItem Header="Created">
+
+            <Grid>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+
+                    <Button Content="Create" Command="{Binding CreateCommand}"/>
+                    <Button Content="Update" Command="{Binding UpdateCommand}"/>
+                    <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+                    <Button Content="Hide"  Command="{Binding HideCommand}"/>
+
+                </StackPanel>
+
+                <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border BorderBrush="Red" BorderThickness="5" CornerRadius="10" Margin="5">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding CreatedDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding ExecuteDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Creator.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Assignee.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+            </Grid>
+            
+        </TabItem>
+
+        <TabItem Header="Assigned">
+
+            <Grid>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+
+                    <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
+
+                </StackPanel>
+
+                <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border BorderBrush="Red" BorderThickness="5" CornerRadius="10"
+                                                Margin="5">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding CreatedDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding ExecuteDate, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Creator.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <TextBlock Text="{Binding Assignee.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+            </Grid>
+            
+        </TabItem>
+        
+    </TabControl>
 </Window>

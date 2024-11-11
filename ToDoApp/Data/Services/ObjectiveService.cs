@@ -12,7 +12,7 @@ namespace Data.Services
 {
     public static class ObjectiveService
     {
-        public static void AddObjective(User creator, string title, string description)
+        public static void AddObjective(User creator, User assigner, string title, string description)
         {
             var objective = new Objective
             {
@@ -21,82 +21,67 @@ namespace Data.Services
                 Description = description,
                 CreatedDate = DateTime.Now,
                 Creator = creator,
+                Assignee = assigner,
                 IsDeleted = false,
                 IsExecuted = false,
                 ExecuteDate = null!
             };
-            using (var context = new SQLServerDBContext())
+            try
             {
-                try
-                {
-                    context.Objectives.Add(objective);
-                    context.SaveChanges();
-                    Debug.WriteLine("Задача добавлена!");
-                }
-                catch (Exception ex)
-                {
+                DbWorker.AbstractContext.Objectives.Add(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача добавлена!");
+            }
+            catch (Exception ex)
+            {
 
-                    Debug.WriteLine(ex.Message);
-                }
+                Debug.WriteLine(ex.Message);
             }
         }
-        public static void UpdateObjective(Objective objective, string title, string description, User assignee)
+        public static void UpdateObjective(Objective objective, string title, string description, User assigner)
         {
             objective.Title = title;
             objective.Description = description;
-            objective.Assignee = assignee;
-            using (var context = new SQLServerDBContext())
+            objective.Assignee = assigner;
+            try
             {
-                try
-                {
-                    context.Objectives.Update(objective);
-                    context.SaveChanges();
-                    Debug.WriteLine("Задача обновлена!");
-                }
-                catch (Exception ex)
-                {
-
-                    Debug.WriteLine(ex.Message);
-                }
+                DbWorker.AbstractContext.Objectives.Update(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача обновлена!");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
         }
         public static void DeleteObjective(Objective objective)
         {
-            using (var context = new SQLServerDBContext())
+            try
             {
-                try
-                {
-                    context.Objectives.Remove(objective);
-                    context.SaveChanges();
-                    Debug.WriteLine("Задача удалена!");
-                }
-                catch (Exception ex)
-                {
+                DbWorker.AbstractContext.Objectives.Remove(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача удалена!");
+            }
+            catch (Exception ex)
+            {
 
-                    Debug.WriteLine(ex.Message);
-                }
+                Debug.WriteLine(ex.Message);
             }
         }
         public static void Hide(Objective objective)
         {
             objective.IsDeleted = true;
-            using (var context = new SQLServerDBContext())
-            {
-                context.Objectives.Update(objective);
-                context.SaveChanges();
-            }
-            Debug.WriteLine("Задача скрыта!");
+            DbWorker.AbstractContext.Objectives.Update(objective);
+            DbWorker.AbstractContext.SaveChanges();
+            Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача скрыта!");
         }
         public static void Execute(Objective objective)
         {
             objective.IsExecuted = true;
             objective.ExecuteDate = DateTime.Now;
-            using (var context = new SQLServerDBContext())
-            {
-                context.Objectives.Update(objective);
-                context.SaveChanges();
-            }
-            Debug.WriteLine("Задача выполнена!");
+            DbWorker.AbstractContext.Objectives.Update(objective);
+            DbWorker.AbstractContext.SaveChanges();
+            Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача выполнена!");
         }
     }
 }

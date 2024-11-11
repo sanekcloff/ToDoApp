@@ -18,7 +18,7 @@ namespace ToDoApplication.ViewModels
 
             LoginCommand = new RelayCommand(o =>
             {
-                var user = UserService.Find(login, password, DbWorker.AbstractContext);
+                var user = UserService.Find(login, password);
                 if (user != null)
                 {
                     var newWindnow = new MainView(user);
@@ -31,7 +31,7 @@ namespace ToDoApplication.ViewModels
             });
             RegisterCommand = new RelayCommand(o =>
             {
-                UserService.AddUser(lastname, firstname, middlename, login, password, DbWorker.AbstractContext);
+                UserService.AddUser(lastname, firstname, middlename, login, password);
             });
         }
 

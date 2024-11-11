@@ -13,7 +13,7 @@ namespace ToDoApplication
     {
         public App() : base()
         {
-            DbWorker.UseSqlServer();
+            DbWorker.UseSqlite();
             DatabaseFacade facade = new DatabaseFacade(DbWorker.AbstractContext);
             facade.EnsureCreated();
         }

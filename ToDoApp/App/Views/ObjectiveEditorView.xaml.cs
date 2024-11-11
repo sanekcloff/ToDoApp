@@ -17,17 +17,16 @@ using ToDoApplication.ViewModels;
 namespace ToDoApplication.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MainView.xaml
+    /// Логика взаимодействия для ObjectiveEditorView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class ObjectiveEditorView : Window
     {
-        MainViewModel viewModel;
-        public MainView(User user)
+        ObjectiveEditorViewModel viewModel;
+        public ObjectiveEditorView(User user, Objective objective = null!)
         {
             InitializeComponent();
-            viewModel = new MainViewModel(user);
+            viewModel = new(user,objective);
             DataContext = viewModel;
-            Title = $"Окно пользователя: {user.Fullname}";
         }
     }
 }
