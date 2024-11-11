@@ -12,14 +12,11 @@ namespace Data.Services
 {
     public static class UserService
     {
-        public static User Find(string login, string password)
+        public static User? Find(string login, string password, AbstractContext context)
         {
-            using (var context = new SQLServerDBContext())
-            {
-                return context.Users.Where(u=>u.Password == password && u.Login == login).FirstOrDefault();
-            }
+            return context.Users.Where(u => u.Password == password && u.Login == login).FirstOrDefault();
         }
-        public static void AddUser(string lastName, string firstName, string middleName, string login, string password)
+        public static void AddUser(string lastName, string firstName, string middleName, string login, string password, AbstractContext context)
         {
             var user = new User
             {
@@ -31,69 +28,54 @@ namespace Data.Services
                 IsDeleted = false,
                 Password = password
             };
-            using (var context = new SQLServerDBContext())
+            try
             {
-                try
-                {
-                    context.Users.Add(user);
-                    context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-
-                    throw new Exception(ex.Message);
-                }
+                context.Users.Add(user);
+                context.SaveChanges();
+                Debug.WriteLine($"Пользователь добавлен! {context.GetType().Name}");
             }
-            Debug.WriteLine("Пользователь добавлен!");
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
-        public static void UpdateUser(User user, string lastName, string firstName, string middleName, string login, string password)
+        public static void UpdateUser(User user, string lastName, string firstName, string middleName, string login, string password, AbstractContext context)
         {
             user.Lastname = lastName;
             user.Firstname = firstName;
             user.Middlename = middleName;
             user.Login = login;
             user.Password = password;
-            using (var context = new SQLServerDBContext())
-            {
-                try
-                {
-                    context.Users.Update(user);
-                    context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-
-                    throw new Exception(ex.Message);
-                }
-            }
-            Debug.WriteLine("Пользователь обновлён!");
-        }
-        public static void DeleteUser(User user)
-        {
-            using (var context = new SQLServerDBContext())
-            {
-                try
-                {
-                    context.Users.Remove(user);
-                    context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-
-                    throw new Exception(ex.Message);
-                }
-            }
-            Debug.WriteLine("Пользователь удалён!");
-        }
-        public static void Hide(User user)
-        {
-            user.IsDeleted = true;
-            using (var context = new SQLServerDBContext())
+            try
             {
                 context.Users.Update(user);
                 context.SaveChanges();
+                Debug.WriteLine($"Пользователь обновлён! {context.GetType().Name}");
             }
-            Debug.WriteLine("Пользователь скрыт!");
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        public static void DeleteUser(User user, AbstractContext context)
+        {
+            try
+            {
+                context.Users.Remove(user);
+                context.SaveChanges();
+                Debug.WriteLine($"Пользователь удалён! {context.GetType().Name}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        public static void Hide(User user, AbstractContext context)
+        {
+            user.IsDeleted = true;
+            context.Users.Update(user);
+            context.SaveChanges();
+            Debug.WriteLine($"Пользователь скрыт! {context.GetType().Name}");
         }
     }
 }

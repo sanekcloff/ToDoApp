@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using Data.Context;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -9,6 +11,12 @@ namespace ToDoApplication
     /// </summary>
     public partial class App : Application
     {
+        public App() : base()
+        {
+            DbWorker.UseSqlServer();
+            DatabaseFacade facade = new DatabaseFacade(DbWorker.AbstractContext);
+            facade.EnsureCreated();
+        }
     }
 
 }

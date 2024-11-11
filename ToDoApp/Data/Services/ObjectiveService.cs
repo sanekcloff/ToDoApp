@@ -31,14 +31,14 @@ namespace Data.Services
                 {
                     context.Objectives.Add(objective);
                     context.SaveChanges();
+                    Debug.WriteLine("Задача добавлена!");
                 }
                 catch (Exception ex)
                 {
 
-                    throw new Exception(ex.Message);
+                    Debug.WriteLine(ex.Message);
                 }
             }
-            Debug.WriteLine("Задача добавлена!");
         }
         public static void UpdateObjective(Objective objective, string title, string description, User assignee)
         {
@@ -51,14 +51,14 @@ namespace Data.Services
                 {
                     context.Objectives.Update(objective);
                     context.SaveChanges();
+                    Debug.WriteLine("Задача обновлена!");
                 }
                 catch (Exception ex)
                 {
 
-                    throw new Exception(ex.Message);
+                    Debug.WriteLine(ex.Message);
                 }
             }
-            Debug.WriteLine("Задача обновлена!");
         }
         public static void DeleteObjective(Objective objective)
         {
@@ -68,14 +68,14 @@ namespace Data.Services
                 {
                     context.Objectives.Remove(objective);
                     context.SaveChanges();
+                    Debug.WriteLine("Задача удалена!");
                 }
                 catch (Exception ex)
                 {
 
-                    throw new Exception(ex.Message);
+                    Debug.WriteLine(ex.Message);
                 }
             }
-            Debug.WriteLine("Задача удалена!");
         }
         public static void Hide(Objective objective)
         {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Data.Context;
 
 namespace ToDoApplication.ViewModels
 {
@@ -14,9 +15,10 @@ namespace ToDoApplication.ViewModels
     {
         public AuthorizationViewModel()
         {
+
             LoginCommand = new RelayCommand(o =>
             {
-                var user = UserService.Find(login, password);
+                var user = UserService.Find(login, password, DbWorker.AbstractContext);
                 if (user != null)
                 {
                     var newWindnow = new MainView(user);
@@ -29,7 +31,7 @@ namespace ToDoApplication.ViewModels
             });
             RegisterCommand = new RelayCommand(o =>
             {
-                UserService.AddUser(lastname, firstname, middlename, login, password);
+                UserService.AddUser(lastname, firstname, middlename, login, password, DbWorker.AbstractContext);
             });
         }
 
