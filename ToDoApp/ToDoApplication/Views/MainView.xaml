@@ -29,29 +29,8 @@
                 </StackPanel>
 
                 <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Border BorderBrush="Red" BorderThickness="5" CornerRadius="10" Margin="5">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="{Binding IsDeleted, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding CreatedDate, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding ExecuteDate, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Creator.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Assignee.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                          SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+
 
             </Grid>
             
@@ -73,29 +52,7 @@
                 </StackPanel>
 
                 <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Border BorderBrush="Red" BorderThickness="5" CornerRadius="10"
-                                                Margin="5">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding CreatedDate, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding ExecuteDate, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Creator.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <TextBlock Text="{Binding Assignee.Fullname, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                          SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
             

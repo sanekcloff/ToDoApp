@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views" xmlns:viewmodels="clr-namespace:ToDoApplication.ViewModels" 
         mc:Ignorable="d"
-        Title="AuthorizationView" Height="300" Width="240"
+        Title="AuthorizationView" Height="370" Width="240"
         Icon="{StaticResource Icon}"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
