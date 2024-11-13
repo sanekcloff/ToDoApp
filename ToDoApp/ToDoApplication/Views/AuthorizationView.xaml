@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views" xmlns:viewmodels="clr-namespace:ToDoApplication.ViewModels" 
         mc:Ignorable="d"
-        Title="AuthorizationView" Height="370" Width="240">
-    <Border CornerRadius="20">
+        Title="AuthorizationView" Height="370" Width="240"
+        Icon="{StaticResource Icon}"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None">
+    
+    <Border CornerRadius="20" Background="{StaticResource PrimaryColor}">
         <Grid>
             <TabControl HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -20,11 +26,11 @@
                         VerticalAlignment="Center"
                         Width="auto">
                         
-                        <Label Content="LOGIN"/>
+                        <Label Content="LOGIN" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Login}"/>
                         
-                        <Label Content="PASSWORD"/>
+                        <Label Content="PASSWORD" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Password}"/>
                         
@@ -35,27 +41,28 @@
                     </StackPanel>
                     
                 </TabItem>
+                
                 <TabItem Header="Регистрация">
                     
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto">
                         
-                        <Label Content="FIRSTNAME"/>
+                        <Label Content="FIRSTNAME" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Firstname}"/>
-                        
-                        <Label Content="LASTNAME"/>
+
+                        <Label Content="LASTNAME" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Lastname}"/>
-                        
-                        <Label Content="MIDDLENAME"/>
+
+                        <Label Content="MIDDLENAME" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Middlename}"/>
-                        
-                        <Label Content="LOGIN"/>
+
+                        <Label Content="LOGIN" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Login}"/>
-                        
-                        <Label Content="PASSWORD"/>
+
+                        <Label Content="PASSWORD" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Password}"/>
                         
