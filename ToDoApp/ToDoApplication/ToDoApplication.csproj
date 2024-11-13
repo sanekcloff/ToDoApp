@@ -9,25 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Images\Icons\Icon.ico" />
-    <None Remove="Assets\Images\Icons\Logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\CustomControls\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\Images\Icons\Icon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Images\Icons\Logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 </Project>
