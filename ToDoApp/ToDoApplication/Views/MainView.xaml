@@ -5,57 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
-    <TabControl>
-        
-        <TabItem Header="Created">
+        Title="MainView" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="{StaticResource Icon}">
+    <Border Background="{StaticResource PrimaryColor}"
+            CornerRadius="10"
+            x:Name="DragBorder"
+            MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
+        <TabControl Background="Transparent"
+            BorderBrush="Transparent">
 
-            <Grid>
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <TabItem Header="Created">
 
-                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                <Grid>
 
-                    <Button Content="Create" Command="{Binding CreateCommand}"/>
-                    <Button Content="Update" Command="{Binding UpdateCommand}"/>
-                    <Button Content="Delete" Command="{Binding DeleteCommand}"/>
-                    <Button Content="Show"  Command="{Binding ShowCommand}"/>
-                    <Button Content="Hide"  Command="{Binding HideCommand}"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
 
-                <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Content="Create" Command="{Binding CreateCommand}"/>
+                        <Button Content="Update" Command="{Binding UpdateCommand}"/>
+                        <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+                        <Button Content="Show"  Command="{Binding ShowCommand}"/>
+                        <Button Content="Hide"  Command="{Binding HideCommand}"/>
+
+                    </StackPanel>
+
+                    <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-            </Grid>
-            
-        </TabItem>
+                </Grid>
 
-        <TabItem Header="Assigned">
+            </TabItem>
 
-            <Grid>
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <TabItem Header="Assigned">
 
-                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                <Grid>
 
-                    <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
 
-                <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
 
-            </Grid>
-            
-        </TabItem>
-        
-    </TabControl>
+                    </StackPanel>
+
+                    <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+
+                </Grid>
+
+            </TabItem>
+
+        </TabControl>
+    </Border>
 </Window>

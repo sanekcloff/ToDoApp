@@ -1,0 +1,74 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="ListView">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Background="{StaticResource SecondaryColor}"
+                                        x:Name="IsDeletedStatus"
+                                        Opacity="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border x:Name="ExecuteStatus" Background="Red" Grid.Column="0"/>
+
+                                        <Border Grid.Column="1">
+
+                                            <StackPanel x:Name="Elements" Orientation="Vertical" TextBlock.Foreground="{StaticResource TextPassiveColor}">
+
+                                                <TextBlock Text="{Binding Title}"/>
+                                                <TextBlock Text="{Binding Description}"/>
+                                                <TextBlock Text="{Binding CreatedDate}"/>
+                                                <TextBlock Text="{Binding ExecuteDate}"/>
+                                                <TextBlock Text="{Binding Creator.Fullname}"/>
+                                                <TextBlock Text="{Binding Assignee.Fullname}"/>
+
+                                            </StackPanel>
+                                            
+                                        </Border>
+                                        
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    
+                                    <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                        <Setter TargetName="IsDeletedStatus" Property="Opacity" Value="0.5"/>
+                                    </DataTrigger>
+                                    
+                                    <DataTrigger Binding="{Binding IsExecuted}" Value="True">
+                                        <Setter TargetName="ExecuteStatus" Property="Background" Value="Green"/>
+                                    </DataTrigger>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Elements" Property="TextBlock.Foreground" Value="{StaticResource TextActiveColor}"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="IsDeletedStatus" Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+                                        <Setter TargetName="IsDeletedStatus" Property="BorderThickness" Value="2"/>
+                                    </Trigger>
+
+                                </ControlTemplate.Triggers>
+                                
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    
+</ResourceDictionary>

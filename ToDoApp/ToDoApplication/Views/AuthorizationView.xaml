@@ -12,7 +12,9 @@
         AllowsTransparency="True"
         WindowStyle="None">
     
-    <Border CornerRadius="20" Background="{StaticResource PrimaryColor}">
+    <Border CornerRadius="20" Background="{StaticResource PrimaryColor}"
+            x:Name="DragBorder"
+            MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
         <Grid>
             <TabControl HorizontalAlignment="Center"
                         VerticalAlignment="Center"

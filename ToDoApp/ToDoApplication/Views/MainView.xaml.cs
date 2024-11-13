@@ -29,5 +29,10 @@ namespace ToDoApplication.Views
             DataContext = viewModel;
             Title = $"Окно пользователя: {user.Fullname}";
         }
+
+        private void DragBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed) DragMove();
+        }
     }
 }
