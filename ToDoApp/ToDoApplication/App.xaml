@@ -7,12 +7,6 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="\Assets\Styles\Elements\LogoStyle.xaml"/>
-                <ResourceDictionary Source="\Assets\Styles\Colors\AppColors.xaml"/>
-                <ResourceDictionary Source="\Assets\Styles\Controls\TabStyle.xaml"/>
-                <ResourceDictionary Source="\Assets\Styles\Controls\TextBoxStyle.xaml"/>
-                <ResourceDictionary Source="\Assets\Styles\Controls\ButtonStyle.xaml"/>
-                <ResourceDictionary Source="\Assets\Styles\Controls\ListViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
          

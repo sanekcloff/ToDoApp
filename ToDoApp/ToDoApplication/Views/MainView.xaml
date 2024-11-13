@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800"
-        Icon="{StaticResource Icon}">
+        Title="MainView" Height="450" Width="800">
     <TabControl>
         
         <TabItem Header="Created">
