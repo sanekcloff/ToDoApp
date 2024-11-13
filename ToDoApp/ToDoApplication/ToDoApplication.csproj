@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\CustomControls\" />
-    <Folder Include="Assets\Styles\Colors\" />
-    <Folder Include="Assets\Styles\Controls\" />
   </ItemGroup>
 
   <ItemGroup>
