@@ -1,5 +1,7 @@
-﻿using Data.Models;
+﻿using Data.Context;
+using Data.Models;
 using Data.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,6 +40,11 @@ namespace ToDoApplication.ViewModels
                 ObjectiveService.Hide(SelectedCreatedObjective);
                 UpdateLists();
             });
+            ShowCommand = new RelayCommand(o =>
+            {
+                ObjectiveService.Show(SelectedCreatedObjective);
+                UpdateLists();
+            });
             ExecuteCommand = new RelayCommand(o =>
             {
                 ObjectiveService.Execute(SelectedAssignedObjective);
@@ -65,12 +72,13 @@ namespace ToDoApplication.ViewModels
         public RelayCommand UpdateCommand { get; }
         public RelayCommand DeleteCommand { get; }
         public RelayCommand HideCommand { get; }
+        public RelayCommand ShowCommand { get; }
         public RelayCommand ExecuteCommand { get; }
 
         private void UpdateLists(object? sender = null!, PropertyChangedEventArgs e = null!)
         {
-            CreatedObjectives = CurrentUser.CreatedObjectives.Where(co=>co.IsDeleted==false).ToList();
-            AssignedObjectives = CurrentUser.AssignedObjectives.Where(ao => ao.IsDeleted == false).ToList();
+            CreatedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Creator == CurrentUser).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
+            AssignedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Assignee == CurrentUser && co.IsDeleted==false).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
         }
     }
 }

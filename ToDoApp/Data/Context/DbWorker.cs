@@ -8,8 +8,11 @@ namespace Data.Context
 {
     public static class DbWorker
     {
+        static DbWorker()
+        {
+            UseSqlite();
+        }
         private static AbstractContext abstractContext = null!;
-
         public static AbstractContext AbstractContext 
         { 
             get => abstractContext; 

@@ -22,6 +22,7 @@
                     <Button Content="Create" Command="{Binding CreateCommand}"/>
                     <Button Content="Update" Command="{Binding UpdateCommand}"/>
                     <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+                    <Button Content="Show"  Command="{Binding ShowCommand}"/>
                     <Button Content="Hide"  Command="{Binding HideCommand}"/>
 
                 </StackPanel>
@@ -35,6 +36,7 @@
                                     <ControlTemplate>
                                         <Border BorderBrush="Red" BorderThickness="5" CornerRadius="10" Margin="5">
                                             <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding IsDeleted, UpdateSourceTrigger=PropertyChanged}"/>
                                                 <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
                                                 <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                                                 <TextBlock Text="{Binding CreatedDate, UpdateSourceTrigger=PropertyChanged}"/>

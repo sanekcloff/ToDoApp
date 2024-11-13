@@ -22,7 +22,7 @@ namespace Data.Services
         }
         public static User? Find(string login, string password)
         {
-            return DbWorker.AbstractContext.Users.Where(u => u.Password == password && u.Login == login).Include(u=>u.AssignedObjectives).Include(u => u.CreatedObjectives).FirstOrDefault();
+            return DbWorker.AbstractContext.Users.Where(u => u.Password == password && u.Login == login).FirstOrDefault();
         }
         public static void AddUser(string lastName, string firstName, string middleName, string login, string password)
         {

@@ -34,7 +34,6 @@ namespace Data.Services
             }
             catch (Exception ex)
             {
-
                 Debug.WriteLine(ex.Message);
             }
         }
@@ -74,6 +73,13 @@ namespace Data.Services
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
             Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача скрыта!");
+        }
+        public static void Show(Objective objective)
+        {
+            objective.IsDeleted = false;
+            DbWorker.AbstractContext.Objectives.Update(objective);
+            DbWorker.AbstractContext.SaveChanges();
+            Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача видима!");
         }
         public static void Execute(Objective objective)
         {
