@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:ToDoApplication"
              StartupUri="Views\AuthorizationView.xaml">
     <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Assets\Styles\Elements\LogoStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
          
     </Application.Resources>
 </Application>

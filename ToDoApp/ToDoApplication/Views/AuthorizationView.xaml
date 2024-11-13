@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views" xmlns:viewmodels="clr-namespace:ToDoApplication.ViewModels" 
         mc:Ignorable="d"
-        Title="AuthorizationView" Height="450" Width="800">
+        Title="AuthorizationView" Height="450" Width="800"
+        Icon="{StaticResource Icon}">
     <Grid>
         <TabControl>
             <TabItem Header="Авторизация">
