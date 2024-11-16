@@ -1,4 +1,5 @@
 ﻿using Data.Context;
+using LogHandler;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Configuration;
 using System.Data;
@@ -15,6 +16,7 @@ namespace ToDoApplication
         {
             DatabaseFacade facade = new DatabaseFacade(DbWorker.AbstractContext);
             facade.EnsureCreated();
+            Logger.Start();
         }
     }
 

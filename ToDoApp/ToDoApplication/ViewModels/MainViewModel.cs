@@ -1,6 +1,7 @@
 ﻿using Data.Context;
 using Data.Models;
 using Data.Services;
+using LogHandler;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,8 @@ namespace ToDoApplication.ViewModels
         {
             CreatedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Creator == CurrentUser).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
             AssignedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Assignee == CurrentUser && co.IsDeleted==false).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
+
+            Logger.AddLog("Списки обновлены!");
         }
     }
 }

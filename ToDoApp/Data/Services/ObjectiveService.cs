@@ -1,5 +1,7 @@
 ﻿using Data.Context;
 using Data.Models;
+using LogHandler;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,11 +32,15 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Objectives.Add(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача добавлена!");
+
+                var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача добавлена!";
+                Debug.WriteLine(message);
+                Logger.AddLog(message);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                Logger.AddLog(ex.Message);
             }
         }
         public static void UpdateObjective(Objective objective, string title, string description, User assigner)
@@ -46,11 +52,14 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Objectives.Update(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача обновлена!");
+                var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача обновлена!";
+                Debug.WriteLine(message);
+                Logger.AddLog(message);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                Logger.AddLog(ex.Message);
             }
         }
         public static void DeleteObjective(Objective objective)
@@ -59,12 +68,15 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Objectives.Remove(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача удалена!");
+                var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача удалена!";
+                Debug.WriteLine(message);
+                Logger.AddLog(message);
             }
             catch (Exception ex)
             {
 
                 Debug.WriteLine(ex.Message);
+                Logger.AddLog(ex.Message);
             }
         }
         public static void Hide(Objective objective)
@@ -72,14 +84,18 @@ namespace Data.Services
             objective.IsDeleted = true;
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
-            Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача скрыта!");
+            var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача скрыта!";
+            Debug.WriteLine(message);
+            Logger.AddLog(message);
         }
         public static void Show(Objective objective)
         {
             objective.IsDeleted = false;
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
-            Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача видима!");
+            var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача видима!";
+            Debug.WriteLine(message);
+            Logger.AddLog(message);
         }
         public static void Execute(Objective objective)
         {
@@ -87,7 +103,9 @@ namespace Data.Services
             objective.ExecuteDate = DateTime.Now;
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
-            Debug.WriteLine($"{DbWorker.AbstractContext.GetType().Name}: Задача выполнена!");
+            var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача выполнена!";
+            Debug.WriteLine(message);
+            Logger.AddLog(message);
         }
     }
 }

@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogHandler
+{
+    public static class Logger
+    {
+        static readonly string PROJ_DIR = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+        const string LOGS_DIR = "Logs";
+        const string LOG_NAME = "Log Observer";
+        static readonly string LOG_FILE_NAME = $"{PROJ_DIR}\\{LOGS_DIR}\\Logs.txt";
+        private static List<string> logs;
+        static Logger()
+        {
+            logs = new List<string>();
+
+            if(File.Exists(LOG_FILE_NAME))
+                File.Delete(LOG_FILE_NAME);
+
+            Directory.CreateDirectory(LOGS_DIR);
+        }
+        public static void Start()
+        {
+            Process loggerFile = new Process();
+            loggerFile.StartInfo.FileName = "LogHandler.exe";
+            loggerFile.Start();
+
+        }
+        public async static void AddLog(string message)
+        {
+            await Task.Run( () => 
+                {
+                    logs.Add(LOG_NAME + ": " + message);
+                });
+            WriteToFile();
+        }
+        public async static void GetLogs()
+        {
+            while(true)
+            {
+                if (File.Exists(LOG_FILE_NAME))
+                {
+                    var logs = File.ReadAllLines(LOG_FILE_NAME);
+                    foreach (var log in logs)
+                    {
+                        Console.WriteLine(log);
+                    }
+                }
+                await Task.Delay(1000);
+                Console.Clear();
+            }
+        }
+        private static void WriteToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(LOG_FILE_NAME))
+            {
+                foreach (var log in logs)
+                {
+                    writer.WriteLine(log);
+                }
+            }
+        }
+    }
+}
