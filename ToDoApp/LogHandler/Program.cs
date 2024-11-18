@@ -10,7 +10,10 @@ namespace LogHandler
     {
         static void Main(string[] args)
         {
-            Logger.GetLogs();
+            while (true)
+            {
+                Logger.GetLogs();
+            }
         }
     }
 }

@@ -12,14 +12,14 @@ namespace LogHandler
         static readonly string PROJ_DIR = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
         const string LOGS_DIR = "Logs";
         const string LOG_NAME = "Log Observer";
-        static readonly string LOG_FILE_NAME = $"{PROJ_DIR}\\{LOGS_DIR}\\Logs.txt";
+        static readonly string LOG_FILE_DIR = $"{PROJ_DIR}\\{LOGS_DIR}\\Logs.txt";
         private static List<string> logs;
         static Logger()
         {
             logs = new List<string>();
 
-            if(File.Exists(LOG_FILE_NAME))
-                File.Delete(LOG_FILE_NAME);
+            if(File.Exists(LOG_FILE_DIR))
+                File.Delete(LOG_FILE_DIR);
 
             Directory.CreateDirectory(LOGS_DIR);
         }
@@ -28,7 +28,6 @@ namespace LogHandler
             Process loggerFile = new Process();
             loggerFile.StartInfo.FileName = "LogHandler.exe";
             loggerFile.Start();
-
         }
         public async static void AddLog(string message)
         {
@@ -42,9 +41,9 @@ namespace LogHandler
         {
             while(true)
             {
-                if (File.Exists(LOG_FILE_NAME))
+                if (File.Exists(LOG_FILE_DIR))
                 {
-                    var logs = File.ReadAllLines(LOG_FILE_NAME);
+                    var logs = File.ReadAllLines(LOG_FILE_DIR);
                     foreach (var log in logs)
                     {
                         Console.WriteLine(log);
@@ -56,7 +55,7 @@ namespace LogHandler
         }
         private static void WriteToFile()
         {
-            using (StreamWriter writer = new StreamWriter(LOG_FILE_NAME))
+            using (StreamWriter writer = new StreamWriter(LOG_FILE_DIR))
             {
                 foreach (var log in logs)
                 {
