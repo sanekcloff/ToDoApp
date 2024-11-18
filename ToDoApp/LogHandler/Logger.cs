@@ -37,7 +37,7 @@ namespace LogHandler
                 });
             WriteToFile();
         }
-        public async static void GetLogs()
+        public static void GetLogs()
         {
             while(true)
             {
@@ -49,7 +49,7 @@ namespace LogHandler
                         Console.WriteLine(log);
                     }
                 }
-                await Task.Delay(1000);
+                Thread.Sleep(1000);
                 Console.Clear();
             }
         }
