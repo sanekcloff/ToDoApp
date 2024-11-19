@@ -12,7 +12,7 @@ namespace LogHandler
         {
             while (true)
             {
-                Logger.GetLogs();
+                Logger.DisplayLogs();
             }
         }
     }

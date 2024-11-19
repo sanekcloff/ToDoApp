@@ -33,11 +33,12 @@ namespace LogHandler
         {
             await Task.Run( () => 
                 {
-                    logs.Add(LOG_NAME + ": " + message);
+                    logs.Add($"[{DateTime.Now.ToString("G")}]" + LOG_NAME + ": " + message);
                 });
             WriteToFile();
+            Debug.WriteLine(message);
         }
-        public static void GetLogs()
+        public static void DisplayLogs()
         {
             while(true)
             {
@@ -57,10 +58,7 @@ namespace LogHandler
         {
             using (StreamWriter writer = new StreamWriter(LOG_FILE_DIR))
             {
-                foreach (var log in logs)
-                {
-                    writer.WriteLine(log);
-                }
+                logs.ForEach(log => writer.WriteLine(log));
             }
         }
     }

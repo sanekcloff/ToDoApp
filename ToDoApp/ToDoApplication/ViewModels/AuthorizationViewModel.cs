@@ -31,7 +31,7 @@ namespace ToDoApplication.ViewModels
             });
             RegisterCommand = new RelayCommand(o =>
             {
-                UserService.AddUser(lastname, firstname, middlename, login, password);
+                UserService.Add(lastname, firstname, middlename, login, password);
             });
         }
 

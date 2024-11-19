@@ -25,7 +25,7 @@ namespace Data.Services
         {
             return DbWorker.AbstractContext.Users.Where(u => u.Password == password && u.Login == login).FirstOrDefault();
         }
-        public static void AddUser(string lastName, string firstName, string middleName, string login, string password)
+        public static void Add(string lastName, string firstName, string middleName, string login, string password)
         {
             var user = new User
             {
@@ -41,17 +41,14 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Users.Add(user);
                 DbWorker.AbstractContext.SaveChanges();
-                var message = $"Пользователь добавлен! {DbWorker.AbstractContext.GetType().Name}";
-                Debug.WriteLine(message);
-                Logger.AddLog(message);
+                Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь добавлен!");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 Logger.AddLog(ex.Message);
             }
         }
-        public static void UpdateUser(User user, string lastName, string firstName, string middleName, string login, string password)
+        public static void Update(User user, string lastName, string firstName, string middleName, string login, string password)
         {
             user.Lastname = lastName;
             user.Firstname = firstName;
@@ -62,29 +59,23 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Users.Update(user);
                 DbWorker.AbstractContext.SaveChanges();
-                var message = $"Пользователь обновлён! {DbWorker.AbstractContext.GetType().Name}";
-                Debug.WriteLine(message);
-                Logger.AddLog(message);
+                Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь обновлён!");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 Logger.AddLog(ex.Message);
             }
         }
-        public static void DeleteUser(User user)
+        public static void Delete(User user)
         {
             try
             {
                 DbWorker.AbstractContext.Users.Remove(user);
                 DbWorker.AbstractContext.SaveChanges();
-                var message = $"Пользователь удалён! {DbWorker.AbstractContext.GetType().Name}";
-                Debug.WriteLine(message);
-                Logger.AddLog(message);
+                Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь удалён!");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 Logger.AddLog(ex.Message);
             }
         }
@@ -93,9 +84,14 @@ namespace Data.Services
             user.IsDeleted = true;
             DbWorker.AbstractContext.Users.Update(user);
             DbWorker.AbstractContext.SaveChanges();
-            var message = $"Пользователь скрыт! {DbWorker.AbstractContext.GetType().Name}";
-            Debug.WriteLine(message);
-            Logger.AddLog(message);
+            Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь скрыт!");
+        }
+        public static void Show(User user)
+        {
+            user.IsDeleted = false;
+            DbWorker.AbstractContext.Users.Update(user);
+            DbWorker.AbstractContext.SaveChanges();
+            Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь скрыт!");
         }
     }
 }

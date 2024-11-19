@@ -18,22 +18,22 @@ namespace ToDoApplication.ViewModels
             if (objective != null) 
             {
                 Title = objective.Title;
-                Description = objective.Description;
+                Description = objective.Description!;
                 SelectedAssigner = Objective.Assignee;
             }
             else
             {
-                SelectedAssigner = Assigners.FirstOrDefault();
+                SelectedAssigner = Assigners.FirstOrDefault()!;
             }
             SaveCommand = new RelayCommand(o =>
             {
                 if (objective == null)
                 {
-                    ObjectiveService.AddObjective(user, SelectedAssigner, Title, Description!);
+                    ObjectiveService.AddObjective(user, SelectedAssigner!, Title, Description!);
                 }
                 else
                 {
-                    ObjectiveService.UpdateObjective(objective, Title, Description!, SelectedAssigner);
+                    ObjectiveService.Update(objective, Title, Description!, SelectedAssigner);
                 }
             });
         }

@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\LogHandler\LogHandler.csproj" />
   </ItemGroup>
 
   <ItemGroup>
