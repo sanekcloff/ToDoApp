@@ -5,21 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views"
         mc:Ignorable="d"
-        Title="ObjectiveEditorView" Height="450" Width="300">
-    <Grid>
+        Title="ObjectiveEditorView" Height="450" Width="300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+    
+    <Border>
 
-        <StackPanel VerticalAlignment="Center">
+        <Grid>
 
-            <Label Content="Название"/>
-            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Content="Описание"/>
-            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Content="Исполнитель"/>
-            <ComboBox ItemsSource="{Binding Assigners, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Fullname"
-                      SelectedItem="{Binding SelectedAssigner}"/>
+            <StackPanel VerticalAlignment="Center">
 
-            <Button Content="Save" Command="{Binding SaveCommand}"/>
-        </StackPanel>
-        
-    </Grid>
+                <Label Content="Название" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
+                
+                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <Label Content="Описание" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
+                
+                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <Label Content="Исполнитель" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
+                
+                <ComboBox ItemsSource="{Binding Assigners, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Fullname"
+                  SelectedItem="{Binding SelectedAssigner}"
+                          Width="135"
+                          Margin="5"/>
+
+                <Button Content="Save" Command="{Binding SaveCommand}"
+                        Width="140"/>
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+    
 </Window>

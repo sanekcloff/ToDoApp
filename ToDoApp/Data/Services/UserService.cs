@@ -25,30 +25,22 @@ namespace Data.Services
         {
             return DbWorker.AbstractContext.Users.Where(u => u.Password == password && u.Login == login).FirstOrDefault();
         }
-        public static void Add(string lastName, string firstName, string middleName, string login, string password)
+        public async static void Add(User user)
         {
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                Lastname = lastName,
-                Firstname = firstName,
-                Middlename = middleName,
-                Login = login,
-                IsDeleted = false,
-                Password = password
-            };
             try
             {
+                if (Find(user.Login, user.Password) != null)
+                    throw new Exception("Ошибка! Пользователь уже существует!");
                 DbWorker.AbstractContext.Users.Add(user);
                 DbWorker.AbstractContext.SaveChanges();
-                Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь добавлен!");
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Пользователь добавлен!");
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex.Message);
+                await Logger.AddLogAsync(ex.Message);
             }
         }
-        public static void Update(User user, string lastName, string firstName, string middleName, string login, string password)
+        public async static void Update(User user, string lastName, string firstName, string middleName, string login, string password)
         {
             user.Lastname = lastName;
             user.Firstname = firstName;
@@ -59,39 +51,39 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Users.Update(user);
                 DbWorker.AbstractContext.SaveChanges();
-                Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь обновлён!");
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Пользователь обновлён!");
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex.Message);
+                await Logger.AddLogAsync(ex.Message);
             }
         }
-        public static void Delete(User user)
+        public async static void Delete(User user)
         {
             try
             {
                 DbWorker.AbstractContext.Users.Remove(user);
                 DbWorker.AbstractContext.SaveChanges();
-                Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь удалён!");
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Пользователь удалён!");
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex.Message);
+                await Logger.AddLogAsync(ex.Message);
             }
         }
-        public static void Hide(User user)
+        public async static void Hide(User user)
         {
             user.IsDeleted = true;
             DbWorker.AbstractContext.Users.Update(user);
             DbWorker.AbstractContext.SaveChanges();
-            Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь скрыт!");
+            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Пользователь скрыт!");
         }
-        public static void Show(User user)
+        public async static void Show(User user)
         {
             user.IsDeleted = false;
             DbWorker.AbstractContext.Users.Update(user);
             DbWorker.AbstractContext.SaveChanges();
-            Logger.AddLog($"{DbWorker.AbstractContext.GetType().Name} - Пользователь скрыт!");
+            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Пользователь скрыт!");
         }
     }
 }

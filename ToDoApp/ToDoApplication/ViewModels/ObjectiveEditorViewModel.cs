@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApplication.Command;
+using ToDoApplication.Handlers;
 
 namespace ToDoApplication.ViewModels
 {
@@ -29,11 +30,14 @@ namespace ToDoApplication.ViewModels
             {
                 if (objective == null)
                 {
-                    ObjectiveService.AddObjective(user, SelectedAssigner!, Title, Description!);
+                    var objective = Objective.Create(user, SelectedAssigner!, Title, Description!);
+                    if (InputValidator.IsValid(objective))
+                        ObjectiveService.Add(objective);
                 }
                 else
                 {
-                    ObjectiveService.Update(objective, Title, Description!, SelectedAssigner);
+                    if (InputValidator.IsValid(objective))
+                        ObjectiveService.Update(objective, Title, Description!, SelectedAssigner);
                 }
             });
         }

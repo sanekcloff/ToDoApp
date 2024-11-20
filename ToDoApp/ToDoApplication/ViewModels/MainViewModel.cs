@@ -33,7 +33,7 @@ namespace ToDoApplication.ViewModels
             });
             DeleteCommand = new RelayCommand(o =>
             {
-                ObjectiveService.DeleteObjective(SelectedCreatedObjective);
+                ObjectiveService.Delete(SelectedCreatedObjective);
                 UpdateLists();
             });
             HideCommand = new RelayCommand(o =>

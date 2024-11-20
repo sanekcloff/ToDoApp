@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Data.Context;
+using Data.Models;
+using ToDoApplication.Handlers;
+using ToDoApplication.Notifiers;
+using LogHandler;
 
 namespace ToDoApplication.ViewModels
 {
@@ -18,20 +22,39 @@ namespace ToDoApplication.ViewModels
 
             LoginCommand = new RelayCommand(o =>
             {
-                var user = UserService.Find(login, password);
-                if (user != null)
+                if (!string.IsNullOrEmpty(login) || !string.IsNullOrEmpty(password))
                 {
-                    var newWindnow = new MainView(user);
-                    var currentWindow = Application.Current.MainWindow;
-                    Application.Current.MainWindow = newWindnow;
-                    newWindnow.Show();
-                    currentWindow.Close();
+                    
+                    var user = UserService.Find(login, password)!;
+                    if (user != null)
+                    {
+                        var newWindnow = new MainView(user);
+                        var currentWindow = Application.Current.MainWindow;
+                        Application.Current.MainWindow = newWindnow;
+                        newWindnow.Show();
+                        currentWindow.Close();
+                        MessageNotifier.Information("Успешный вход!");
+                        Logger.AddLog($"Вход под учётной запись {user.Fullname}!");
+                    }
+                    else
+                    {
+                        MessageNotifier.Warnig("Некоректные данные!");
+                        Logger.AddLog($"Ввод некорректных данных!");
+                    }
                 }
-
+                else
+                {
+                    MessageNotifier.Warnig("Введите данные!");
+                    Logger.AddLog($"Ввод пустых полей для входа!");
+                }
             });
             RegisterCommand = new RelayCommand(o =>
             {
-                UserService.Add(lastname, firstname, middlename, login, password);
+                var user = User.Create(lastname, firstname, middlename, login, password);
+                if (InputValidator.IsValid(user) && ValueHandler.IsCorrect(user))
+                    UserService.Add(user);
+                else
+                    ValueHandler.IsCorrect(user);
             });
         }
 

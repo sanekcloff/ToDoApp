@@ -7,9 +7,9 @@ using System.Windows;
 
 namespace ToDoApplication.Notifiers
 {
-    internal class MessageNotifier
+    internal abstract class MessageNotifier
     {
-        internal static void Warnig(string message, string caption = "Предупеждение")
+        internal static void Warnig(string message, string caption = "Предупреждение")
         {
             MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
