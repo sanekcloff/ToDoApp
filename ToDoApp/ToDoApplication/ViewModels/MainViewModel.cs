@@ -35,7 +35,6 @@ namespace ToDoApplication.ViewModels
                     try
                     {
                         OpenWindowDialog(new ObjectiveEditorView(CurrentUser, SelectedCreatedObjective));
-
                     }
                     catch (Exception ex)
                     {

@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Icons\AddIcon.ico" />
+    <None Remove="Assets\Images\Icons\AddLogo.png" />
     <None Remove="Assets\Images\Icons\Icon.ico" />
     <None Remove="Assets\Images\Icons\Logo.png" />
   </ItemGroup>
@@ -18,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\Icons\AddIcon.ico" />
+    <Resource Include="Assets\Images\Icons\AddLogo.png" />
     <Resource Include="Assets\Images\Icons\Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

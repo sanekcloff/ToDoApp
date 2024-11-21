@@ -14,10 +14,10 @@
     <Grid>
 
         <StackPanel Panel.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
-            <Button x:Name="HideButton" Click="HideButton_Click" Style="{StaticResource HideWindowStateButton}" Command="{Binding WindowHideCommand}"/>
+            <Button x:Name="HideButton" Click="HideButton_Click" Style="{StaticResource HideWindowStateButton}"/>
             <Grid>
-                <Button x:Name="MinimazeButton" Click="MinimazeButton_Click" Style="{StaticResource MinimazeWindowStateButton}" Command="{Binding WindowMinimazeCommand}"/>
-                <Button x:Name="FullscreenButton" Click="FullscreenButton_Click" Style="{StaticResource FullScreenWindowStateButton}" Command="{Binding WindowFullscreenCommand}"/>
+                <Button x:Name="MinimazeButton" Click="MinimazeButton_Click" Style="{StaticResource MinimazeWindowStateButton}"/>
+                <Button x:Name="FullscreenButton" Click="FullscreenButton_Click" Style="{StaticResource FullScreenWindowStateButton}"/>
             </Grid>
             <Button x:Name ="CloseButton"  Style="{StaticResource CloseWindowStateButton}" Command="{Binding WindowCloseCommand}"/>
         </StackPanel>
