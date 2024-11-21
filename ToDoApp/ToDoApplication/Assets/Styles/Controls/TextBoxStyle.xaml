@@ -9,6 +9,7 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="120"/>
         <Setter Property="Margin" Value="2"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -16,7 +17,7 @@
                     <Border Background="{TemplateBinding Background}" CornerRadius="10" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                         <ScrollViewer x:Name="PART_ContentHost"
-                                      VerticalAlignment="Center"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                       Margin="5,0"/>
 
                     </Border>

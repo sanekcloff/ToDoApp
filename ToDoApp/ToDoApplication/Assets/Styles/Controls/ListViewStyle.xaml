@@ -5,7 +5,8 @@
 
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="ListViewItem">
@@ -14,23 +15,27 @@
                             <ControlTemplate TargetType="ListViewItem">
                                 <Border Background="{StaticResource SecondaryColor}"
                                         x:Name="IsDeletedStatus"
-                                        Opacity="1">
+                                        Opacity="1"
+                                        CornerRadius="15"
+                                        Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Border x:Name="ExecuteStatus" Background="Red" Grid.Column="0"/>
+                                        <Border x:Name="ExecuteStatus" Background="{StaticResource Work}" Grid.Column="0"
+                                                CornerRadius="15,0,0,15"/>
 
                                         <Border Grid.Column="1">
 
-                                            <StackPanel x:Name="Elements" Orientation="Vertical" TextBlock.Foreground="{StaticResource TextPassiveColor}">
+                                            <StackPanel x:Name="Elements" Orientation="Vertical" TextBlock.Foreground="{StaticResource TextPassiveColor}"
+                                                        Margin="10,5">
 
                                                 <TextBlock Text="{Binding Title}"/>
                                                 <TextBlock Text="{Binding Description}"/>
-                                                <TextBlock Text="{Binding CreatedDate}"/>
-                                                <TextBlock Text="{Binding ExecuteDate}"/>
+                                                <TextBlock Text="{Binding FormatedCreateDate}"/>
+                                                <TextBlock Text="{Binding FormatedExecuteDate}"/>
                                                 <TextBlock Text="{Binding Creator.Fullname}"/>
                                                 <TextBlock Text="{Binding Assignee.Fullname}"/>
 
@@ -48,7 +53,7 @@
                                     </DataTrigger>
                                     
                                     <DataTrigger Binding="{Binding IsExecuted}" Value="True">
-                                        <Setter TargetName="ExecuteStatus" Property="Background" Value="Green"/>
+                                        <Setter TargetName="ExecuteStatus" Property="Background" Value="{StaticResource Ready}"/>
                                     </DataTrigger>
 
                                     <Trigger Property="IsMouseOver" Value="True">

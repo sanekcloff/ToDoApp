@@ -28,26 +28,20 @@ namespace ToDoApplication.ViewModels
                     var user = UserService.Find(login, password)!;
                     if (user != null)
                     {
-                        var newWindnow = new MainView(user);
-                        var currentWindow = Application.Current.MainWindow;
-                        Application.Current.MainWindow = newWindnow;
-                        newWindnow.Show();
-                        currentWindow.Close();
-                        MessageNotifier.Information("Успешный вход!");
-                        Logger.AddLog($"Вход под учётной запись {user.Fullname}!");
+                        OpenWindow(new MainView(user));
+                        MessageNotifier.Information($"Вход под учётной запись {user.Fullname}!");
                     }
                     else
                     {
-                        MessageNotifier.Warnig("Некоректные данные!");
-                        Logger.AddLog($"Ввод некорректных данных!");
+                        MessageNotifier.Warnig($"Ввод некорректных данных!");
                     }
                 }
                 else
                 {
-                    MessageNotifier.Warnig("Введите данные!");
-                    Logger.AddLog($"Ввод пустых полей для входа!");
+                    MessageNotifier.Warnig($"Ввод пустых полей для входа!");
                 }
             });
+
             RegisterCommand = new RelayCommand(o =>
             {
                 var user = User.Create(lastname, firstname, middlename, login, password);
@@ -55,6 +49,11 @@ namespace ToDoApplication.ViewModels
                     UserService.Add(user);
                 else
                     ValueHandler.IsCorrect(user);
+            });
+
+            CloseCommand = new RelayCommand(o => 
+            {
+                AppClose();
             });
         }
 
@@ -72,5 +71,6 @@ namespace ToDoApplication.ViewModels
 
         public RelayCommand LoginCommand { get; }
         public RelayCommand RegisterCommand { get; } 
+        public RelayCommand CloseCommand { get; } 
     }
 }

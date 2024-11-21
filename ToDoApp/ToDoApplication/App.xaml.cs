@@ -16,7 +16,7 @@ namespace ToDoApplication
         {
             DatabaseFacade facade = new DatabaseFacade(DbWorker.AbstractContext);
             facade.EnsureCreated();
-            Logger.Start();
+            Logger.DisableConsole();
         }
     }
 

@@ -40,6 +40,10 @@ namespace ToDoApplication.ViewModels
                         ObjectiveService.Update(objective, Title, Description!, SelectedAssigner);
                 }
             });
+            CloseCommand = new RelayCommand(o =>
+            {
+                AppClose();
+            });
         }
         private string title = string.Empty;
         private string description = string.Empty;
@@ -55,5 +59,6 @@ namespace ToDoApplication.ViewModels
         public string Title { get => title; set => Set(ref title, value, nameof(Title)); }
 
         public RelayCommand SaveCommand { get; }
+        public RelayCommand CloseCommand { get; }
     }
 }

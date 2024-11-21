@@ -7,8 +7,9 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="\Assets\Styles\Elements\Logo.xaml"/>
                 <ResourceDictionary Source="\Assets\Styles\Colors\AppColors.xaml"/>
+                <ResourceDictionary Source="\Assets\Styles\Elements\Logo.xaml"/>
+                <ResourceDictionary Source="\Assets\Styles\Elements\Shapes.xaml"/>
                 <ResourceDictionary Source="\Assets\Styles\Controls\TabStyle.xaml"/>
                 <ResourceDictionary Source="\Assets\Styles\Controls\TextBoxStyle.xaml"/>
                 <ResourceDictionary Source="\Assets\Styles\Controls\ButtonStyle.xaml"/>

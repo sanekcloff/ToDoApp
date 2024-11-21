@@ -9,7 +9,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Effects;
+using System.Windows.Threading;
 using ToDoApplication.Command;
+using ToDoApplication.Notifiers;
 using ToDoApplication.Views;
 
 namespace ToDoApplication.ViewModels
@@ -19,43 +23,118 @@ namespace ToDoApplication.ViewModels
         public MainViewModel(User user)
         {
             CurrentUser = user;
-            UpdateLists();
 
             CreateCommand = new RelayCommand(o =>
             {
-                new ObjectiveEditorView(CurrentUser).ShowDialog();
-                UpdateLists();
+                OpenWindowDialog(new ObjectiveEditorView(CurrentUser));
             });
             UpdateCommand = new RelayCommand(o =>
             {
-                new ObjectiveEditorView(CurrentUser, SelectedCreatedObjective).ShowDialog();
-                UpdateLists();
+                if(SelectedCreatedObjective != null)
+                {
+                    try
+                    {
+                        OpenWindowDialog(new ObjectiveEditorView(CurrentUser, SelectedCreatedObjective));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }    
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка редактировать задачу не выбрав её!");
+                }
             });
             DeleteCommand = new RelayCommand(o =>
             {
-                ObjectiveService.Delete(SelectedCreatedObjective);
-                UpdateLists();
+                if (SelectedCreatedObjective != null)
+                {
+                    try
+                    {
+                        ObjectiveService.Delete(SelectedCreatedObjective);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType().Name} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка удалить задачу не выбрав её!");
+                }
             });
             HideCommand = new RelayCommand(o =>
             {
-                ObjectiveService.Hide(SelectedCreatedObjective);
-                UpdateLists();
+                if (SelectedCreatedObjective != null)
+                {
+                    try
+                    {
+                        ObjectiveService.Hide(SelectedCreatedObjective);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка скрыть задачу не выбрав её!");
+                }
             });
             ShowCommand = new RelayCommand(o =>
             {
-                ObjectiveService.Show(SelectedCreatedObjective);
-                UpdateLists();
+                if (SelectedCreatedObjective != null)
+                {
+                    try
+                    {
+                        ObjectiveService.Show(SelectedCreatedObjective);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка показать задачу не выбрав её!");
+                }
             });
             ExecuteCommand = new RelayCommand(o =>
             {
-                ObjectiveService.Execute(SelectedAssignedObjective);
-                UpdateLists();
+                if (SelectedAssignedObjective != null)
+                {
+                    try
+                    {
+                        ObjectiveService.Execute(SelectedAssignedObjective);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка выполнить задачу не выбрав её!");
+                }
             });
+            WindowCloseCommand = new RelayCommand(o =>
+            {
+                AppClose();
+            });
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += UpdateLists;
+            timer.Start();
         }
 
         private User currentUser;
-        private List<Objective> createdObjectives = new List<Objective>();
-        private List<Objective> assignedObjectives = new List<Objective>();
+        private List<Objective> createdObjectives = new();
+        private List<Objective> assignedObjectives = new();
         private Objective selectedCreatedObjective;
         private Objective selectedAssignedObjective;
 
@@ -75,8 +154,9 @@ namespace ToDoApplication.ViewModels
         public RelayCommand HideCommand { get; }
         public RelayCommand ShowCommand { get; }
         public RelayCommand ExecuteCommand { get; }
+        public RelayCommand WindowCloseCommand { get; }
 
-        private void UpdateLists(object? sender = null!, PropertyChangedEventArgs e = null!)
+        private void UpdateLists(object? sender = null!, EventArgs e = null!)
         {
             CreatedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Creator == CurrentUser).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
             AssignedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Assignee == CurrentUser && co.IsDeleted==false).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();

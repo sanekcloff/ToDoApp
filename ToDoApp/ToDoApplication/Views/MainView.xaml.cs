@@ -28,11 +28,37 @@ namespace ToDoApplication.Views
             viewModel = new MainViewModel(user);
             DataContext = viewModel;
             Title = $"Окно пользователя: {user.Fullname}";
+            MinimazeButton.Visibility = Visibility.Hidden;
         }
 
         private void DragBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == MouseButtonState.Pressed) DragMove();
+        }
+
+        private void HideButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void MinimazeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+                FullscreenButton.Visibility = Visibility.Visible;
+                MinimazeButton.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void FullscreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+                MinimazeButton.Visibility = Visibility.Visible;
+                FullscreenButton.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

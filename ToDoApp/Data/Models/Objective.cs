@@ -45,8 +45,8 @@ namespace Data.Models
 
         //Форматирование
         [NotMapped]
-        public string ForamatedCreateDate => CreateDate.ToString("d");
-        public string ForamatedExecuteDate => ExecuteDate!.Value.ToString("d");
+        public string FormatedCreateDate => CreateDate.ToString("d");
+        public string FormatedExecuteDate => ExecuteDate!.Value.ToString("d");
 
         // Метод создания экземляра
         public static Objective Create(User creator, User assigner, string title, string description)

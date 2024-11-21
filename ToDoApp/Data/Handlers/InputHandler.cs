@@ -25,7 +25,7 @@ namespace Data.Handlers
 
         public static bool Handle(Objective objective)
         {
-            return Regex.IsMatch(objective.Title, $"^[{ENG_PATTERN}{RU_PATTERN}]+$");
+            return Regex.IsMatch(objective.Title, $"^[{ENG_PATTERN} {RU_PATTERN}]+$");
         }
     }
 }

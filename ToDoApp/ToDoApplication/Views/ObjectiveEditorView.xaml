@@ -9,35 +9,55 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent"
+        ResizeMode="NoResize"
+        Icon="{StaticResource AddIcon}">
+
+    <Grid>
+        <Border Background="{StaticResource AccentColor}" CornerRadius="20" Margin="10">
+            <Border.Effect>
+                <BlurEffect Radius="10"/>
+            </Border.Effect>
+        </Border>
+
+        <Border Background="{StaticResource PrimaryColor}" CornerRadius="20"
+        x:Name="DragBorder"
+        MouseLeftButtonDown="DragBorder_MouseLeftButtonDown" Margin="10">
+
+            <Grid>
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <Label Content="TITLE" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
+
+                    <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+
+                    <Label Content="DESCRIPTION" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
+
+                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="200" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" VerticalContentAlignment="Top"/>
+
+                    <Label Content="ASSIGNEE" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
+
+                    <ComboBox ItemsSource="{Binding Assigners, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Fullname"
+              SelectedItem="{Binding SelectedAssigner}"
+                      Width="200"
+                      Margin="5"
+                      Tag="Users"
+                      VerticalContentAlignment="Top"/>
+
+                    <Button Content="Save" Command="{Binding SaveCommand}"
+                    Width="140" Margin="0,10,0,0"/>
+                    <Button Content="Close"
+                    Width="50" Style="{StaticResource TransparentButton}"
+                    x:Name="CloseButton"
+                    Click="CloseButton_Click"/>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+        
+    </Grid>
     
-    <Border>
-
-        <Grid>
-
-            <StackPanel VerticalAlignment="Center">
-
-                <Label Content="Название" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
-                
-                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                <Label Content="Описание" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
-                
-                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                <Label Content="Исполнитель" Foreground="{StaticResource TextActiveColor}" HorizontalAlignment="Center"/>
-                
-                <ComboBox ItemsSource="{Binding Assigners, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Fullname"
-                  SelectedItem="{Binding SelectedAssigner}"
-                          Width="135"
-                          Margin="5"/>
-
-                <Button Content="Save" Command="{Binding SaveCommand}"
-                        Width="140"/>
-            </StackPanel>
-
-        </Grid>
-
-    </Border>
     
 </Window>

@@ -15,9 +15,11 @@ namespace LogHandler
         static List<string> logs;
 
         static readonly string PROJ_DIR = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
-        static readonly string LOGS_FILE_DIR = @$"{PROJ_DIR}\{LOGS_DIR}\Logs.txt";
+        static readonly string LOGS_FILE_DIR = @$"{PROJ_DIR}\{LOGS_DIR}\{DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss")}.txt";
 
         static Process loggerFile;
+
+        public static bool isEnableConsoleLog { get; private set; } = false;
 
         static Logger()
         {
@@ -27,17 +29,34 @@ namespace LogHandler
                 File.Delete(LOGS_FILE_DIR);
 
             Directory.CreateDirectory(LOGS_DIR);
+
+            loggerFile = new Process();
+            loggerFile.StartInfo.FileName = "LogHandler.exe";
+            AddLog($"Запись отладки: {DateTime.Now.ToString("G")}");
         }
 
         public static void Start()
         {
-            loggerFile = new Process();
-            loggerFile.StartInfo.FileName = "LogHandler.exe";
-            loggerFile.Start();
+            try
+            {
+                loggerFile.Start();
+            }
+            catch (Exception ex)
+            {
+                AddLog($"{ex.GetType().Name} - {ex.Message}");
+            }
         }
         public static void Stop()
         {
-            loggerFile.Close();
+            try
+            {
+                loggerFile.Close();
+                loggerFile.CloseMainWindow();
+            }
+            catch (Exception ex)
+            {
+                AddLog($"{ex.GetType().Name} - {ex.Message}");
+            }
         }
         public static string AddLog(string message)
         {
@@ -78,6 +97,16 @@ namespace LogHandler
             {
                 logs.ForEach(log => writer.WriteLine(log));
             }
+        }
+        public static void EnableConsole()
+        {
+            isEnableConsoleLog = true;
+            Start();
+        }
+        public static void DisableConsole()
+        {
+            isEnableConsoleLog = false;
+            Stop();
         }
     }
 }

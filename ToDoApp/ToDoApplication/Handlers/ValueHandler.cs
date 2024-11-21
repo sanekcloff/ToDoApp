@@ -29,7 +29,7 @@ namespace ToDoApplication.Handlers
         {
             if (InputHandler.Handle(user))
             {
-                Logger.AddLog($"Ввод пользователя {user.GetType().Name} корректен!");
+                Logger.AddLog($"Ввод пользователя {user.GetType().Name} ({user.Fullname}) корректен!");
                 return true;
             }
             else
@@ -42,7 +42,7 @@ namespace ToDoApplication.Handlers
         {
             if (InputHandler.Handle(objective))
             {
-                Logger.AddLog($"Задача {objective.Title.GetType().Name} корректна!");
+                Logger.AddLog($"Задача {objective.Title.GetType().Name} ({objective.Title}) корректна!");
                 return true;
             }
             else

@@ -3,12 +3,27 @@
 
     <SolidColorBrush x:Key="PrimaryColor" Color="#232528"/>
     <SolidColorBrush x:Key="SecondaryColor" Color="#2F3136"/>
-    <LinearGradientBrush x:Key="AccentColor" StartPoint="0,0" EndPoint="1,0">
+    <LinearGradientBrush x:Key="AccentColor" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Offset="0" Color="#0097ff"/>
         <GradientStop Offset="1" Color="#0058ff"/>
     </LinearGradientBrush>
 
     <SolidColorBrush x:Key="TextActiveColor" Color="#e9e9e9"/>
-    <SolidColorBrush x:Key="TextPassiveColor" Color="#5d5d5d"/>
-    
+    <SolidColorBrush x:Key="TextPassiveColor" Color="#8d8d8d"/>
+
+    <LinearGradientBrush x:Key="Ready" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#3cc5d7"/>
+        <GradientStop Offset="1" Color="#47d794"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Work" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#ff0000"/>
+        <GradientStop Offset="1" Color="#ffbb00"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ControlElement" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#ff8800"/>
+        <GradientStop Offset="1" Color="#ff3300"/>
+    </LinearGradientBrush>
+
 </ResourceDictionary>

@@ -11,62 +11,74 @@
         AllowsTransparency="True"
         Background="Transparent"
         Icon="{StaticResource Icon}">
-    <Border Background="{StaticResource PrimaryColor}"
-            CornerRadius="10"
-            x:Name="DragBorder"
-            MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
-        <TabControl Background="Transparent"
-            BorderBrush="Transparent">
+    <Grid>
 
-            <TabItem Header="Created">
+        <StackPanel Panel.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
+            <Button x:Name="HideButton" Click="HideButton_Click" Style="{StaticResource HideWindowStateButton}" Command="{Binding WindowHideCommand}"/>
+            <Grid>
+                <Button x:Name="MinimazeButton" Click="MinimazeButton_Click" Style="{StaticResource MinimazeWindowStateButton}" Command="{Binding WindowMinimazeCommand}"/>
+                <Button x:Name="FullscreenButton" Click="FullscreenButton_Click" Style="{StaticResource FullScreenWindowStateButton}" Command="{Binding WindowFullscreenCommand}"/>
+            </Grid>
+            <Button x:Name ="CloseButton"  Style="{StaticResource CloseWindowStateButton}" Command="{Binding WindowCloseCommand}"/>
+        </StackPanel>
 
-                <Grid>
+        <Border Background="{StaticResource PrimaryColor}"
+        CornerRadius="10"
+        x:Name="DragBorder"
+        MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
+            
+            <TabControl Background="Transparent" BorderBrush="Transparent" Margin="10">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <TabItem Header="Created">
 
-                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                    <Grid>
 
-                        <Button Content="Create" Command="{Binding CreateCommand}"/>
-                        <Button Content="Update" Command="{Binding UpdateCommand}"/>
-                        <Button Content="Delete" Command="{Binding DeleteCommand}"/>
-                        <Button Content="Show"  Command="{Binding ShowCommand}"/>
-                        <Button Content="Hide"  Command="{Binding HideCommand}"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    </StackPanel>
+                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
 
-                    <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Content="Create" Command="{Binding CreateCommand}"/>
+                            <Button Content="Update" Command="{Binding UpdateCommand}"/>
+                            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+                            <Button Content="Show"  Command="{Binding ShowCommand}"/>
+                            <Button Content="Hide"  Command="{Binding HideCommand}"/>
+
+                        </StackPanel>
+
+                        <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-                </Grid>
+                    </Grid>
 
-            </TabItem>
+                </TabItem>
 
-            <TabItem Header="Assigned">
+                <TabItem Header="Assigned">
 
-                <Grid>
+                    <Grid>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
 
-                        <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
+                            <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
 
-                    </StackPanel>
+                        </StackPanel>
 
-                    <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
 
-                </Grid>
+                    </Grid>
 
-            </TabItem>
+                </TabItem>
 
-        </TabControl>
-    </Border>
+            </TabControl>
+        </Border>
+    </Grid>
 </Window>
