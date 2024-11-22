@@ -13,6 +13,38 @@
         Icon="{StaticResource Icon}">
     <Grid>
 
+        <Thumb x:Name="resizeThumb" Width="20" Height="20" Background="Transparent" 
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                       DragDelta="resizeThumb_DragDelta" Panel.ZIndex="2" Margin="4" Cursor="Cross">
+
+            <Thumb.Style>
+
+                <Style TargetType="Thumb">
+
+                    <Setter Property="Template">
+                        
+                        <Setter.Value>
+
+                            <ControlTemplate TargetType="Thumb">
+                                
+                                <Border Background="Transparent">
+                                    
+                                    <Path Data="{StaticResource Resize}" Fill="{StaticResource TextPassiveColor}" Stretch="Uniform"/>
+                                    
+                                </Border>
+
+                            </ControlTemplate>
+                            
+                        </Setter.Value>
+                        
+                    </Setter>
+                    
+                </Style>
+                
+            </Thumb.Style>
+            
+        </Thumb>
+
         <StackPanel Panel.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
             <Button x:Name="HideButton" Click="HideButton_Click" Style="{StaticResource HideWindowStateButton}"/>
             <Grid>
@@ -27,7 +59,7 @@
         x:Name="DragBorder"
         MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
             
-            <TabControl Background="Transparent" BorderBrush="Transparent" Margin="10">
+            <TabControl Background="Transparent" BorderBrush="Transparent" Margin="20">
 
                 <TabItem Header="Created">
 

@@ -10,7 +10,8 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
-        WindowStyle="None">
+        WindowStyle="None"
+        ResizeMode="NoResize">
     
     <Border CornerRadius="20" Background="{StaticResource PrimaryColor}"
             x:Name="DragBorder"

@@ -48,6 +48,7 @@ namespace ToDoApplication.Views
                 WindowState = WindowState.Normal;
                 FullscreenButton.Visibility = Visibility.Visible;
                 MinimazeButton.Visibility = Visibility.Hidden;
+                resizeThumb.Visibility = Visibility.Visible;
             }
         }
 
@@ -58,6 +59,19 @@ namespace ToDoApplication.Views
                 WindowState = WindowState.Maximized;
                 MinimazeButton.Visibility = Visibility.Visible;
                 FullscreenButton.Visibility = Visibility.Hidden;
+                resizeThumb.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void resizeThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            if (this.Height + e.VerticalChange > 300)
+            {
+                this.Height = this.Height + e.VerticalChange;
+            }
+            if (this.Width + e.HorizontalChange > 400)
+            {
+                this.Width = this.Width + e.HorizontalChange;
             }
         }
     }

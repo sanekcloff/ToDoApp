@@ -46,7 +46,10 @@ namespace ToDoApplication.ViewModels
             {
                 var user = User.Create(lastname, firstname, middlename, login, password);
                 if (InputValidator.IsValid(user) && ValueHandler.IsCorrect(user))
+                {
                     UserService.Add(user);
+                    MessageNotifier.Information("Запись зарегистрирована.");
+                }    
                 else
                     ValueHandler.IsCorrect(user);
             });

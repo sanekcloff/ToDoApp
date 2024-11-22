@@ -34,7 +34,6 @@ namespace LogHandler
             loggerFile.StartInfo.FileName = "LogHandler.exe";
             AddLog($"Запись отладки: {DateTime.Now.ToString("G")}");
         }
-
         public static void Start()
         {
             try
@@ -75,29 +74,6 @@ namespace LogHandler
                 });
             return message;
         }
-        public static void DisplayLogs()
-        {
-            while (true)
-            {
-                if (File.Exists(LOGS_FILE_DIR))
-                {
-                    var logs = File.ReadAllLines(LOGS_FILE_DIR);
-                    foreach (var log in logs)
-                    {
-                        Console.WriteLine(log);
-                    }
-                }
-                Thread.Sleep(1000);
-                Console.Clear();
-            }
-        }
-        private static void WriteToFile()
-        {
-            using (StreamWriter writer = new StreamWriter(LOGS_FILE_DIR))
-            {
-                logs.ForEach(log => writer.WriteLine(log));
-            }
-        }
         public static void EnableConsole()
         {
             isEnableConsoleLog = true;
@@ -107,6 +83,98 @@ namespace LogHandler
         {
             isEnableConsoleLog = false;
             Stop();
+        }
+        public static void GetAllLogFiles()
+        {
+            try
+            {
+                var files = Directory.GetFiles($@"{PROJ_DIR}\{LOGS_DIR}");
+                DisplayLogs(MenuSelector(files));
+
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Console.WriteLine("Указанная папка не найдена.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Нет доступа к указанной папке.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Произошла ошибка: {ex.Message}");
+            }
+        }
+        private static void DisplayLogs(string dir)
+        {
+            while (true)
+            {
+                if (File.Exists(dir))
+                {
+                    var logs = File.ReadAllLines(dir);
+                    foreach (var log in logs)
+                    {
+                        Console.WriteLine(log);
+                    }
+                }
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+        }
+        private static string MenuSelector(ICollection<string> files)
+        {
+            var selectedTab = files.Count-1;
+            var menuTabs = files.Order().ToList();
+            while (true)
+            {
+                foreach (var tab in menuTabs)
+                {
+                    if (menuTabs.IndexOf(tab) == selectedTab)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"[{menuTabs.IndexOf(tab)}]\t{Path.GetFileName(tab)}");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine($"[{menuTabs.IndexOf(tab)}]\t{Path.GetFileName(tab)}");
+                    }
+                }
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (selectedTab == 0)
+                            selectedTab = menuTabs.Count-1;
+                        else
+                            selectedTab--;
+                        Console.Clear();
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        if (selectedTab == menuTabs.Count-1)
+                            selectedTab = 0;
+                        else
+                            selectedTab++;
+                        Console.Clear();
+                        break;
+
+                    case ConsoleKey.Enter:
+                        Console.Clear();
+                        return menuTabs[selectedTab];
+
+                    default:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+        private static void WriteToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(LOGS_FILE_DIR))
+            {
+                logs.ForEach(log => writer.WriteLine(log));
+            }
         }
     }
 }

@@ -29,4 +29,8 @@
     <ProjectReference Include="..\LogHandler\LogHandler.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="LocalDB\" />
+  </ItemGroup>
+
 </Project>
