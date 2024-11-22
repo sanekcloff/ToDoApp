@@ -14,36 +14,21 @@ namespace Data.Services
 {
     public static class ObjectiveService
     {
-        public static void AddObjective(User creator, User assigner, string title, string description)
+        public async static void Add(Objective objective)
         {
-            var objective = new Objective
-            {
-                Id = Guid.NewGuid(),
-                Title = title,
-                Description = description,
-                CreatedDate = DateTime.Now,
-                Creator = creator,
-                Assignee = assigner,
-                IsDeleted = false,
-                IsExecuted = false,
-                ExecuteDate = null!
-            };
             try
             {
                 DbWorker.AbstractContext.Objectives.Add(objective);
                 DbWorker.AbstractContext.SaveChanges();
-
-                var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача добавлена!";
-                Debug.WriteLine(message);
-                Logger.AddLog(message);
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача добавлена!");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-                Logger.AddLog(ex.Message);
+                await Logger.AddLogAsync(ex.Message);
             }
         }
-        public static void UpdateObjective(Objective objective, string title, string description, User assigner)
+
+        public async static void Update(Objective objective, string title, string description, User assigner)
         {
             objective.Title = title;
             objective.Description = description;
@@ -52,60 +37,47 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Objectives.Update(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача обновлена!";
-                Debug.WriteLine(message);
-                Logger.AddLog(message);
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача обновлена!");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-                Logger.AddLog(ex.Message);
+                await Logger.AddLogAsync(ex.Message);
             }
         }
-        public static void DeleteObjective(Objective objective)
+        public async static void Delete(Objective objective)
         {
             try
             {
                 DbWorker.AbstractContext.Objectives.Remove(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача удалена!";
-                Debug.WriteLine(message);
-                Logger.AddLog(message);
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача удалена!");
             }
             catch (Exception ex)
             {
-
-                Debug.WriteLine(ex.Message);
-                Logger.AddLog(ex.Message);
+                await Logger.AddLogAsync(ex.Message);
             }
         }
-        public static void Hide(Objective objective)
+        public async static void Hide(Objective objective)
         {
             objective.IsDeleted = true;
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
-            var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача скрыта!";
-            Debug.WriteLine(message);
-            Logger.AddLog(message);
+            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача скрыта!");
         }
-        public static void Show(Objective objective)
+        public async static void Show(Objective objective)
         {
             objective.IsDeleted = false;
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
-            var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача видима!";
-            Debug.WriteLine(message);
-            Logger.AddLog(message);
+            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача видима!");
         }
-        public static void Execute(Objective objective)
+        public async static void Execute(Objective objective)
         {
             objective.IsExecuted = true;
             objective.ExecuteDate = DateTime.Now;
             DbWorker.AbstractContext.Objectives.Update(objective);
             DbWorker.AbstractContext.SaveChanges();
-            var message = $"{DbWorker.AbstractContext.GetType().Name} - Задача выполнена!";
-            Debug.WriteLine(message);
-            Logger.AddLog(message);
+            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача выполнена!");
         }
     }
 }

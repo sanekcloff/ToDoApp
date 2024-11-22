@@ -5,7 +5,8 @@
 
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="ListViewItem">
@@ -14,25 +15,70 @@
                             <ControlTemplate TargetType="ListViewItem">
                                 <Border Background="{StaticResource SecondaryColor}"
                                         x:Name="IsDeletedStatus"
-                                        Opacity="1">
+                                        Opacity="1"
+                                        CornerRadius="15"
+                                        Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Border x:Name="ExecuteStatus" Background="Red" Grid.Column="0"/>
+                                        <Border x:Name="ExecuteStatus" Background="{StaticResource Work}" Grid.Column="0"
+                                                CornerRadius="15,0,0,15"/>
 
                                         <Border Grid.Column="1">
 
-                                            <StackPanel x:Name="Elements" Orientation="Vertical" TextBlock.Foreground="{StaticResource TextPassiveColor}">
+                                            <StackPanel x:Name="Elements" Orientation="Vertical" TextBlock.Foreground="{StaticResource TextPassiveColor}"
+                                                        Margin="10,5">
 
-                                                <TextBlock Text="{Binding Title}"/>
-                                                <TextBlock Text="{Binding Description}"/>
-                                                <TextBlock Text="{Binding CreatedDate}"/>
-                                                <TextBlock Text="{Binding ExecuteDate}"/>
-                                                <TextBlock Text="{Binding Creator.Fullname}"/>
-                                                <TextBlock Text="{Binding Assignee.Fullname}"/>
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Description}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Задача" VerticalAlignment="Top"/>
+
+                                                    <TextBlock Text="{Binding Title}" FontSize="20" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Border Background="{StaticResource AccentColor}" CornerRadius="3" Width="6" Margin="11,0,10,4"/>
+
+                                                    <TextBlock Text="{Binding Description}" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Start}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Дата начала"/>
+
+                                                    <TextBlock Text="{Binding FormatedCreateDate}" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal" x:Name="ExecuteDateElement" Visibility="Collapsed">
+
+                                                    <Path Data="{StaticResource Finish}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Дата завершения"/>
+
+                                                    <TextBlock Text="{Binding FormatedExecuteDate}" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Star}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Создатель"/>
+
+                                                    <TextBlock Text="{Binding Creator.Fullname}" VerticalAlignment="Center"/>
+                                                    
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Executor}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Исполнитель"/>
+
+                                                    <TextBlock Text="{Binding Assignee.Fullname}" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
 
                                             </StackPanel>
                                             
@@ -44,20 +90,31 @@
                                 <ControlTemplate.Triggers>
                                     
                                     <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                        
                                         <Setter TargetName="IsDeletedStatus" Property="Opacity" Value="0.5"/>
+                                        
                                     </DataTrigger>
                                     
                                     <DataTrigger Binding="{Binding IsExecuted}" Value="True">
-                                        <Setter TargetName="ExecuteStatus" Property="Background" Value="Green"/>
+                                        
+                                        <Setter TargetName="ExecuteStatus" Property="Background" Value="{StaticResource Ready}"/>
+                                        
+                                        <Setter TargetName="ExecuteDateElement" Property="Visibility" Value="Visible"/>
+                                        
                                     </DataTrigger>
 
                                     <Trigger Property="IsMouseOver" Value="True">
+                                        
                                         <Setter TargetName="Elements" Property="TextBlock.Foreground" Value="{StaticResource TextActiveColor}"/>
+                                        
                                     </Trigger>
 
                                     <Trigger Property="IsSelected" Value="True">
+                                        
                                         <Setter TargetName="IsDeletedStatus" Property="BorderBrush" Value="{StaticResource AccentColor}"/>
-                                        <Setter TargetName="IsDeletedStatus" Property="BorderThickness" Value="2"/>
+                                        
+                                        <Setter TargetName="IsDeletedStatus" Property="BorderThickness" Value="0,0,2,2"/>
+                                        
                                     </Trigger>
 
                                 </ControlTemplate.Triggers>

@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApplication.Views" xmlns:viewmodels="clr-namespace:ToDoApplication.ViewModels" 
         mc:Ignorable="d"
-        Title="AuthorizationView" Height="370" Width="240"
+        Title="AuthorizationView" Height="400" Width="240"
         Icon="{StaticResource Icon}"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
-        WindowStyle="None">
+        WindowStyle="None"
+        ResizeMode="NoResize">
     
     <Border CornerRadius="20" Background="{StaticResource PrimaryColor}"
             x:Name="DragBorder"
@@ -21,7 +22,7 @@
                         Background="Transparent"
                         BorderThickness="0">
                 
-                <TabItem Header="Авторизация">
+                <TabItem Header="LOG IN">
                     
                     <StackPanel Orientation="Vertical"
                         HorizontalAlignment="Center"
@@ -36,25 +37,24 @@
                         
                         <TextBox Text="{Binding Password}"/>
                         
-                        <Button Content="Login"
-                                
-                        Command="{Binding LoginCommand}"/>
+                        <Button Content="Login" Command="{Binding LoginCommand}" Margin="0,20,0,0"/>
+                        <Button Content="Close" Command="{Binding CloseCommand}" Style="{StaticResource TransparentButton}" Width="50"/>
                         
                     </StackPanel>
                     
                 </TabItem>
                 
-                <TabItem Header="Регистрация">
+                <TabItem Header="SIGN UP">
                     
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto">
                         
-                        <Label Content="FIRSTNAME" Foreground="{StaticResource TextActiveColor}"/>
-                        
-                        <TextBox Text="{Binding Firstname}"/>
-
                         <Label Content="LASTNAME" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Lastname}"/>
+                        
+                        <Label Content="FIRSTNAME" Foreground="{StaticResource TextActiveColor}"/>
+
+                        <TextBox Text="{Binding Firstname}"/>
 
                         <Label Content="MIDDLENAME" Foreground="{StaticResource TextActiveColor}"/>
                         
@@ -67,12 +67,14 @@
                         <Label Content="PASSWORD" Foreground="{StaticResource TextActiveColor}"/>
                         
                         <TextBox Text="{Binding Password}"/>
-                        
-                        <Button Command="{Binding RegisterCommand}" Content="Register"/>
+
+                        <Button Command="{Binding RegisterCommand}" Content="Register" Margin="0,20,0,0"/>
+                        <Button Command="{Binding CloseCommand}" Content="Close" Style="{StaticResource TransparentButton}" Width="50"/>
                         
                     </StackPanel>
                     
                 </TabItem>
+                
             </TabControl>
         </Grid>
     </Border>

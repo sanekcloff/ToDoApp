@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Data.Context;
+using Data.Models;
+using ToDoApplication.Handlers;
+using ToDoApplication.Notifiers;
+using LogHandler;
 
 namespace ToDoApplication.ViewModels
 {
@@ -18,20 +22,41 @@ namespace ToDoApplication.ViewModels
 
             LoginCommand = new RelayCommand(o =>
             {
-                var user = UserService.Find(login, password);
-                if (user != null)
+                if (!string.IsNullOrEmpty(login) || !string.IsNullOrEmpty(password))
                 {
-                    var newWindnow = new MainView(user);
-                    var currentWindow = Application.Current.MainWindow;
-                    Application.Current.MainWindow = newWindnow;
-                    newWindnow.Show();
-                    currentWindow.Close();
+                    
+                    var user = UserService.Find(login, password)!;
+                    if (user != null)
+                    {
+                        OpenWindow(new MainView(user));
+                        MessageNotifier.Information($"Вход под учётной запись {user.Fullname}!");
+                    }
+                    else
+                    {
+                        MessageNotifier.Warnig($"Ввод некорректных данных!");
+                    }
                 }
-
+                else
+                {
+                    MessageNotifier.Warnig($"Ввод пустых полей для входа!");
+                }
             });
+
             RegisterCommand = new RelayCommand(o =>
             {
-                UserService.AddUser(lastname, firstname, middlename, login, password);
+                var user = User.Create(lastname, firstname, middlename, login, password);
+                if (InputValidator.IsValid(user) && ValueHandler.IsCorrect(user))
+                {
+                    UserService.Add(user);
+                    MessageNotifier.Information("Запись зарегистрирована.");
+                }    
+                else
+                    ValueHandler.IsCorrect(user);
+            });
+
+            CloseCommand = new RelayCommand(o => 
+            {
+                AppClose();
             });
         }
 
@@ -49,5 +74,6 @@ namespace ToDoApplication.ViewModels
 
         public RelayCommand LoginCommand { get; }
         public RelayCommand RegisterCommand { get; } 
+        public RelayCommand CloseCommand { get; } 
     }
 }

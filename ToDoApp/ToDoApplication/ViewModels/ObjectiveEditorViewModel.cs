@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApplication.Command;
+using ToDoApplication.Handlers;
 
 namespace ToDoApplication.ViewModels
 {
@@ -18,23 +19,30 @@ namespace ToDoApplication.ViewModels
             if (objective != null) 
             {
                 Title = objective.Title;
-                Description = objective.Description;
+                Description = objective.Description!;
                 SelectedAssigner = Objective.Assignee;
             }
             else
             {
-                SelectedAssigner = Assigners.FirstOrDefault();
+                SelectedAssigner = Assigners.FirstOrDefault()!;
             }
             SaveCommand = new RelayCommand(o =>
             {
                 if (objective == null)
                 {
-                    ObjectiveService.AddObjective(user, SelectedAssigner, Title, Description!);
+                    var objective = Objective.Create(user, SelectedAssigner!, Title, Description!);
+                    if (InputValidator.IsValid(objective))
+                        ObjectiveService.Add(objective);
                 }
                 else
                 {
-                    ObjectiveService.UpdateObjective(objective, Title, Description!, SelectedAssigner);
+                    if (InputValidator.IsValid(objective))
+                        ObjectiveService.Update(objective, Title, Description!, SelectedAssigner);
                 }
+            });
+            CloseCommand = new RelayCommand(o =>
+            {
+                AppClose();
             });
         }
         private string title = string.Empty;
@@ -51,5 +59,6 @@ namespace ToDoApplication.ViewModels
         public string Title { get => title; set => Set(ref title, value, nameof(Title)); }
 
         public RelayCommand SaveCommand { get; }
+        public RelayCommand CloseCommand { get; }
     }
 }

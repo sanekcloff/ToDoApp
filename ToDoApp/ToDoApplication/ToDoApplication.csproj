@@ -6,22 +6,31 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <StartupObject></StartupObject>
+    <ApplicationIcon>Assets\Images\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Icons\AddIcon.ico" />
+    <None Remove="Assets\Images\Icons\AddLogo.png" />
     <None Remove="Assets\Images\Icons\Icon.ico" />
     <None Remove="Assets\Images\Icons\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\LogHandler\LogHandler.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Images\Icons\Icon.ico">
+    <Resource Include="Assets\Images\Icons\AddIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Images\Icons\AddLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Assets\Images\Icons\Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Assets\Images\Icons\Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

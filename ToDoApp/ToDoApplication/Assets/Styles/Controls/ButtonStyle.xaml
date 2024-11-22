@@ -37,5 +37,143 @@
         </Style.Triggers>
         
     </Style>
+
+    <Style x:Key="TransparentButton" TargetType="Button">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPassiveColor}"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="Width" Value="auto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="{TemplateBinding Background}" CornerRadius="8" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+
+                        <Label Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TextActiveColor}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TextActiveColor}"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Trigger>
+
+        </Style.Triggers>
+
+    </Style>
+
+    <Style x:Key="CloseWindowStateButton" TargetType="Button">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource TextPassiveColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <Path Data="{StaticResource X_Shape_Data}" Fill="{TemplateBinding Background}" Stretch="Uniform"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource TextActiveColor}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ControlElement}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     
+    <Style x:Key="HideWindowStateButton" TargetType="Button">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource TextPassiveColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <Path Data="{StaticResource Underscore_Shape_Data}" Fill="{TemplateBinding Background}" Stretch="Uniform" Margin="0,14,0,0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource TextActiveColor}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ControlElement}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FullScreenWindowStateButton" TargetType="Button">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource TextPassiveColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <Path Data="{StaticResource Fullscreen_Shape_Data}" Fill="{TemplateBinding Background}" Stretch="Uniform"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource TextActiveColor}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ControlElement}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MinimazeWindowStateButton" TargetType="Button">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource TextPassiveColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <Grid>
+                            <Path Data="{StaticResource Minimaze_Shape_Data1}" Fill="{TemplateBinding Background}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,5,5,0"/>
+                            <Path Data="{StaticResource Minimaze_Shape_Data2}" Fill="{TemplateBinding Background}" Stretch="Uniform" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,0,0,5"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource TextActiveColor}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ControlElement}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
 </ResourceDictionary>

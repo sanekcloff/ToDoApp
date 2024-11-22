@@ -5,6 +5,22 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\icon.ico" />
+    <None Remove="Icons\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\Logo.png" />
+  </ItemGroup>
 
 </Project>

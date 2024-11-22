@@ -11,7 +11,7 @@ namespace Data.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data source = ToDoAppDB.db;");
+            optionsBuilder.UseSqlite("Data source = ToDoAppDb.db");
         }
     }
 }

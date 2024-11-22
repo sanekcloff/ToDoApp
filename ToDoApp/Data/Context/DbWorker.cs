@@ -10,7 +10,7 @@ namespace Data.Context
     {
         static DbWorker()
         {
-            UseSqlite();
+            UseSqliteLocal();
         }
         private static AbstractContext abstractContext = null!;
         public static AbstractContext AbstractContext 
@@ -19,6 +19,7 @@ namespace Data.Context
         }
 
         public static void UseSqlite() => abstractContext = new SqliteDBContext();        
+        public static void UseSqliteLocal() => abstractContext = new SqliteLocalDBContext();        
         public static void UseSqlServer() => abstractContext = new SQLServerDBContext();        
     }
 }
