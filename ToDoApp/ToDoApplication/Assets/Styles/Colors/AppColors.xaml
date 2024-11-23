@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!--Основные цвета приложения-->
     <SolidColorBrush x:Key="PrimaryColor" Color="#232528"/>
     <SolidColorBrush x:Key="SecondaryColor" Color="#2F3136"/>
     <LinearGradientBrush x:Key="AccentColor" StartPoint="0,0" EndPoint="1,1">
@@ -8,19 +9,23 @@
         <GradientStop Offset="1" Color="#0058ff"/>
     </LinearGradientBrush>
 
+    <!--Цвета для текста-->
     <SolidColorBrush x:Key="TextActiveColor" Color="#e9e9e9"/>
     <SolidColorBrush x:Key="TextPassiveColor" Color="#8d8d8d"/>
 
+    <!--Цвет выполненой задачи-->
     <LinearGradientBrush x:Key="Ready" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Offset="0" Color="#3cc5d7"/>
         <GradientStop Offset="1" Color="#47d794"/>
     </LinearGradientBrush>
-
+    
+    <!--Цвет невыполненой задачи-->
     <LinearGradientBrush x:Key="Work" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Offset="0" Color="#ff0000"/>
         <GradientStop Offset="1" Color="#ffbb00"/>
     </LinearGradientBrush>
 
+    <!--Цвет для элементов управления окном-->
     <LinearGradientBrush x:Key="ControlElement" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Offset="0" Color="#ff8800"/>
         <GradientStop Offset="1" Color="#ff3300"/>

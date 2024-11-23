@@ -12,9 +12,11 @@ using ToDoApplication.Notifiers;
 
 namespace ToDoApplication.Handlers
 {
+    // Проверка данных на корректность
     internal static class InputValidator
     {
-        internal static bool IsValid<T>([NotNull] T entity)
+        // Проверка исходя из типа данных
+        internal static bool IsValid<T>(T entity)
         {
             var result = false;
             switch (entity)
@@ -28,24 +30,26 @@ namespace ToDoApplication.Handlers
             }
             return result;
         }
+        // Проверка User
         private static bool IsUserValid(User user)
         {
             if (InputHandler.Handle(user))
             {
-                Logger.AddLog($"Данные пользователя {user.Fullname} корректны!");
+                Logger.AddLog($"Ввод пользователя {user.GetType().Name} ({user.Fullname}) корректен!");
                 return true;
             }
             else
             {
-                MessageNotifier.Error(Logger.AddLog($"Данные пользователя не корректны!"));
+                MessageNotifier.Error(Logger.AddLog($"Ввод пользователя {user.GetType().Name} некорректен!"));
                 return false;
             }
         }
+        // Проверка Objective
         private static bool IsObjectiveValid(Objective objective)
         {
             if (InputHandler.Handle(objective))
             {
-                Logger.AddLog($"Задача {objective.Title} корректна!");
+                Logger.AddLog($"Задача {objective.Title.GetType().Name} ({objective.Title}) корректна!");
                 return true;
             }
             else

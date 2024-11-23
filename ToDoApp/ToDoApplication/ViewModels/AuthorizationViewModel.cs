@@ -19,7 +19,6 @@ namespace ToDoApplication.ViewModels
     {
         public AuthorizationViewModel()
         {
-
             LoginCommand = new RelayCommand(o =>
             {
                 if (!string.IsNullOrEmpty(login) || !string.IsNullOrEmpty(password))
@@ -42,16 +41,20 @@ namespace ToDoApplication.ViewModels
                 }
             });
 
-            RegisterCommand = new RelayCommand(o =>
+            RegisterCommand = new RelayCommand(async o =>
             {
                 var user = User.Create(lastname, firstname, middlename, login, password);
-                if (InputValidator.IsValid(user) && ValueHandler.IsCorrect(user))
+                if (InputValidator.IsValid(user))
                 {
-                    UserService.Add(user);
-                    MessageNotifier.Information("Запись зарегистрирована.");
+                    if (await UserService.Add(user))
+                    {
+                        MessageNotifier.Information("Запись зарегистрирована.");
+                    }
+                    else
+                    {
+                        MessageNotifier.Warnig("Используйте другие учётные данные!");
+                    }
                 }    
-                else
-                    ValueHandler.IsCorrect(user);
             });
 
             CloseCommand = new RelayCommand(o => 

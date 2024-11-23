@@ -11,6 +11,7 @@ namespace LogHandler
     {
         static void Main(string[] args)
         {
+            // Отображение логов
             GetAllLogFiles();
             Console.ReadLine();
         }

@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace ToDoApplication.Notifiers
 {
+    // Вызов всплывающих окон вместе с логирование действия
     internal abstract class MessageNotifier
     {
         internal static void Warnig(string message, string caption = "Предупреждение")

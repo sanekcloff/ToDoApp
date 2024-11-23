@@ -12,15 +12,17 @@ using System.Threading.Tasks;
 
 namespace Data.Services
 {
+    // Класс для работы с Objective
     public static class ObjectiveService
     {
+        // Добавление
         public async static void Add(Objective objective)
         {
             try
             {
                 DbWorker.AbstractContext.Objectives.Add(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача добавлена!");
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) добавлена!");
             }
             catch (Exception ex)
             {
@@ -28,6 +30,7 @@ namespace Data.Services
             }
         }
 
+        // Обновление
         public async static void Update(Objective objective, string title, string description, User assigner)
         {
             objective.Title = title;
@@ -37,47 +40,78 @@ namespace Data.Services
             {
                 DbWorker.AbstractContext.Objectives.Update(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача обновлена!");
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) обновлена!");
             }
             catch (Exception ex)
             {
                 await Logger.AddLogAsync(ex.Message);
             }
         }
+
+        // Удаление
         public async static void Delete(Objective objective)
         {
             try
             {
                 DbWorker.AbstractContext.Objectives.Remove(objective);
                 DbWorker.AbstractContext.SaveChanges();
-                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача удалена!");
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) удалена!");
             }
             catch (Exception ex)
             {
                 await Logger.AddLogAsync(ex.Message);
             }
         }
+
+        // Скрыть
         public async static void Hide(Objective objective)
         {
-            objective.IsDeleted = true;
-            DbWorker.AbstractContext.Objectives.Update(objective);
-            DbWorker.AbstractContext.SaveChanges();
-            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача скрыта!");
+            if (objective.IsDeleted == false)
+            {
+                objective.IsDeleted = true;
+                DbWorker.AbstractContext.Objectives.Update(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) скрыта!");
+            }
+            else
+            {
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Ошибка! Задача ({objective.Title}) уже скрыта!");
+            }
         }
+
+        // Сделать видимым
         public async static void Show(Objective objective)
         {
-            objective.IsDeleted = false;
-            DbWorker.AbstractContext.Objectives.Update(objective);
-            DbWorker.AbstractContext.SaveChanges();
-            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача видима!");
+            if (objective.IsDeleted == true)
+            {
+                objective.IsDeleted = false;
+                DbWorker.AbstractContext.Objectives.Update(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) теперь видима!");
+            }
+            else
+            {
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Ошибка! Задача ({objective.Title}) уже видима!");
+            }
+            
         }
+
+        // Выполнить
         public async static void Execute(Objective objective)
         {
-            objective.IsExecuted = true;
-            objective.ExecuteDate = DateTime.Now;
-            DbWorker.AbstractContext.Objectives.Update(objective);
-            DbWorker.AbstractContext.SaveChanges();
-            await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача выполнена!");
+            if (objective.IsExecuted == false)
+            {
+                objective.IsExecuted = true;
+                objective.ExecuteDate = DateTime.Now;
+                DbWorker.AbstractContext.Objectives.Update(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) выполнена!");
+            }
+            else
+            {
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Ошбика! Задача ({objective.Title}) уже выполнена!");
+            }
+            
         }
     }
 }

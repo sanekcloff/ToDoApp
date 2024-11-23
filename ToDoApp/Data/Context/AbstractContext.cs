@@ -8,10 +8,16 @@ using System.Threading.Tasks;
 
 namespace Data.Context
 {
+    // Общий вид БД для разлицных контекстов
     public abstract class AbstractContext : DbContext
     {
+        // Модель таблицы Users
         public DbSet<User> Users { get; set; }
+
+        // Модель таблицы Objectives
         public DbSet<Objective> Objectives { get; set; }
+
+        // Настройка связей для таблиц
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Objective>()

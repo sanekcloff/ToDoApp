@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Context
 {
+    // Класс для создания файла Sqlite в проекте
     public class SqliteLocalDBContext : AbstractContext
     {
         private static string SetLocalSqliteConnect()
