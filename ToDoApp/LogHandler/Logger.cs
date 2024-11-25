@@ -9,18 +9,26 @@ namespace LogHandler
 {
     public static class Logger
     {
+        // Имя папки для хранения фала логов
         const string LOGS_DIR = "Logs";
+        // Имя отображаемое как логгер
         const string LOG_NAME = "Log Observer";
 
+        // Список логов
         static List<string> logs;
 
+        // Путь до проекта
         static readonly string PROJ_DIR = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+        // Путь до фала логов
         static readonly string LOGS_FILE_DIR = @$"{PROJ_DIR}\{LOGS_DIR}\{DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss")}.txt";
 
+        // Процесс для запуска логгера с конслью
         static Process loggerFile;
 
+        // Свойство для переключению работы с конслью
         public static bool isEnableConsoleLog { get; private set; } = false;
 
+        // Вызов стартовых инициализаций при первом вызове Logger
         static Logger()
         {
             logs = new List<string>();
@@ -34,6 +42,8 @@ namespace LogHandler
             loggerFile.StartInfo.FileName = "LogHandler.exe";
             AddLog($"Запись отладки: {DateTime.Now.ToString("G")}");
         }
+
+        // Начать работу консоли
         public static void Start()
         {
             try
@@ -45,6 +55,7 @@ namespace LogHandler
                 AddLog($"{ex.GetType().Name} - {ex.Message}");
             }
         }
+        // Остановить работу консоли
         public static void Stop()
         {
             try
@@ -57,6 +68,7 @@ namespace LogHandler
                 AddLog($"{ex.GetType().Name} - {ex.Message}");
             }
         }
+        // Запись логов
         public static string AddLog(string message)
         {
             logs.Add($"[{DateTime.Now.ToString("G")}]" + LOG_NAME + ": " + message);
@@ -64,6 +76,7 @@ namespace LogHandler
             Debug.WriteLine(message);
             return message;
         }
+        // Запись логов асинхронно
         public async static Task<string> AddLogAsync(string message)
         {
             await Task.Run( () => 
@@ -74,16 +87,19 @@ namespace LogHandler
                 });
             return message;
         }
+        // Включени консоли
         public static void EnableConsole()
         {
             isEnableConsoleLog = true;
             Start();
         }
+        // Отключени консоли
         public static void DisableConsole()
         {
             isEnableConsoleLog = false;
             Stop();
         }
+        // Считавание всех фалов с логами
         public static void GetAllLogFiles()
         {
             try
@@ -121,6 +137,7 @@ namespace LogHandler
                 Console.Clear();
             }
         }
+        // Выбор пунктов из меню
         private static string MenuSelector(ICollection<string> files)
         {
             var selectedTab = files.Count-1;
@@ -169,6 +186,7 @@ namespace LogHandler
                 }
             }
         }
+        // Запись в файл
         private static void WriteToFile()
         {
             using (StreamWriter writer = new StreamWriter(LOGS_FILE_DIR))

@@ -14,6 +14,7 @@ namespace ToDoApplication.Command
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        // Установка нового значения и вызов события
         protected bool Set<T> (ref T field, T value, string propertyName)
         {
             if (EqualityComparer<T>.Default.Equals(field, value)) return false;
@@ -21,11 +22,12 @@ namespace ToDoApplication.Command
             OnPropertyChanged(propertyName);
             return true;
         }
+        // Метод вызова обновления визуала при обновлении свойства
         protected virtual void OnPropertyChanged (string propertyName) 
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs (propertyName));
         }
-
+        // Обычное открытие окна
         protected Window OpenWindow(Window window)
         {
             var temp = Application.Current.MainWindow;
@@ -34,6 +36,7 @@ namespace ToDoApplication.Command
             window.Show();
             return window;
         }
+        // Открытие диалогового окна
         protected Window OpenWindowDialog(Window window)
         {
             try
@@ -49,6 +52,7 @@ namespace ToDoApplication.Command
             
             return window;
         }
+        // Закртие приложения
         protected void AppClose()
         {
             Application.Current.Shutdown();

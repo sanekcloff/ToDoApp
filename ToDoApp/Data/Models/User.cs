@@ -10,6 +10,7 @@ namespace Data.Models
     public class User
     {
         public User() { }
+
         // Скрытый конструктор
         private User(string lastName, string firstName, string middleName, string login, string password) 
         {
@@ -43,6 +44,7 @@ namespace Data.Models
         [NotMapped]
         public string Fullname => $"{Lastname} {Firstname[0]}. {Middlename[0]}.";
 
+        // Метод создания экземляра
         public static User Create(string lastName, string firstName, string middleName, string login, string password)
         {
             return new(lastName, firstName, middleName, login, password);

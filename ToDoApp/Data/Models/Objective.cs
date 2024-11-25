@@ -10,6 +10,7 @@ namespace Data.Models
     public class Objective
     {
         public Objective() { }
+
         // Скрытый конструктор
         private Objective(User creator, User assigner, string title, string description)
         {
