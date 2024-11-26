@@ -38,6 +38,7 @@
                         <TextBox Text="{Binding Password}"/>
                         
                         <Button Content="Login" Command="{Binding LoginCommand}" Margin="0,20,0,0"/>
+                        <Button Content="Admin" Command="{Binding AdminCommand}" Margin="0,2,0,0"/>
                         <Button Content="Close" Command="{Binding CloseCommand}" Style="{StaticResource TransparentButton}" Width="50"/>
                         
                     </StackPanel>

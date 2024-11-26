@@ -113,5 +113,23 @@ namespace Data.Services
             }
             
         }
+
+        // Отменить
+        public async static void Undo(Objective objective)
+        {
+            if (objective.IsExecuted == true)
+            {
+                objective.IsExecuted = false;
+                objective.ExecuteDate = null;
+                DbWorker.AbstractContext.Objectives.Update(objective);
+                DbWorker.AbstractContext.SaveChanges();
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Задача ({objective.Title}) отменена!");
+            }
+            else
+            {
+                await Logger.AddLogAsync($"{DbWorker.AbstractContext.GetType().Name} - Ошбика! Задача ({objective.Title}) уже отменена!");
+            }
+
+        }
     }
 }

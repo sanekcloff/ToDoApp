@@ -41,6 +41,28 @@ namespace ToDoApplication.ViewModels
                 }
             });
 
+            AdminCommand = new RelayCommand(o =>
+            {
+                if (!string.IsNullOrEmpty(login) || !string.IsNullOrEmpty(password))
+                {
+
+                    var user = UserService.Find(login, password)!;
+                    if (user != null)
+                    {
+                        OpenWindow(new AdminView(user));
+                        MessageNotifier.Information($"Вход под учётной запись {user.Fullname}!");
+                    }
+                    else
+                    {
+                        MessageNotifier.Warnig($"Ввод некорректных данных!");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Warnig($"Ввод пустых полей для входа!");
+                }
+            });
+
             RegisterCommand = new RelayCommand(async o =>
             {
                 var user = User.Create(lastname, firstname, middlename, login, password);
@@ -76,6 +98,7 @@ namespace ToDoApplication.ViewModels
         public string Password { get => password; set => Set(ref password, value, nameof(Password)); }
 
         public RelayCommand LoginCommand { get; }
+        public RelayCommand AdminCommand { get; }
         public RelayCommand RegisterCommand { get; } 
         public RelayCommand CloseCommand { get; } 
     }
