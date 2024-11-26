@@ -1,0 +1,129 @@
+﻿<Window x:Class="ToDoApplication.Views.AdminView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoApplication.Views"
+        mc:Ignorable="d"
+        Title="AdminView" Height="450" Width="800"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowDrop="True"
+        WindowStartupLocation="CenterScreen"
+        Icon="{StaticResource Icon}"
+        ResizeMode="NoResize">
+    
+    <Grid>
+
+        <Thumb x:Name="resizeThumb" Width="20" Height="20" Background="Transparent" 
+               HorizontalAlignment="Right" VerticalAlignment="Bottom"
+               DragDelta="resizeThumb_DragDelta" Panel.ZIndex="2" Margin="4" Cursor="Cross">
+
+            <Thumb.Style>
+
+                <Style TargetType="Thumb">
+
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+
+                            <ControlTemplate TargetType="Thumb">
+
+                                <Border Background="Transparent">
+
+                                    <Path Data="{StaticResource Resize}" Fill="{StaticResource TextPassiveColor}" Stretch="Uniform"/>
+
+                                </Border>
+
+                            </ControlTemplate>
+
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Style>
+
+            </Thumb.Style>
+
+        </Thumb>
+
+        <StackPanel Panel.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
+            <Button x:Name="HideButton" Click="HideButton_Click" Style="{StaticResource HideWindowStateButton}"/>
+            <Grid>
+                <Button x:Name="MinimazeButton" Click="MinimazeButton_Click" Style="{StaticResource MinimazeWindowStateButton}" Visibility="Collapsed"/>
+                <Button x:Name="FullscreenButton" Click="FullscreenButton_Click" Style="{StaticResource FullScreenWindowStateButton}"/>
+            </Grid>
+            <Button x:Name ="CloseButton"  Style="{StaticResource CloseWindowStateButton}" Command="{Binding WindowCloseCommand}"/>
+        </StackPanel>
+
+        <Border x:Name="DragBorder" Background="{StaticResource PrimaryColor}" CornerRadius="10" MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
+
+            <TabControl Background="Transparent" BorderThickness="0" Margin="20">
+
+                <TabItem Header="Users">
+                    
+                </TabItem>
+
+                <TabItem Header="Objectives">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                            <Button Content="Add" Command="{Binding AddObjectiveCommand}"/>
+                            <Button Content="Update" Command="{Binding UpdateObjectiveCommand}"/>
+                            <Button Content="Delete" Command="{Binding DeleteObjectiveCommand}"/>
+                            <Button Content="Hide" Command="{Binding HideObjectiveCommand}"/>
+                            <Button Content="Show" Command="{Binding ShowObjectiveCommand}"/>
+                            <Button Content="Execute" Command="{Binding ExecuteObjectiveCommand}"/>
+                            <Button Content="Undo" Command="{Binding UndoObjectiveCommand}"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            
+                            <StackPanel>
+                                <Label Content="Title" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Title}"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <Label Content="Description" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Description}"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <Label Content="Assignee" Foreground="{StaticResource TextPassiveColor}"/>
+                                <ComboBox Width="120" SelectedItem="{Binding SelectedAssignee}"
+                                          ItemsSource="{Binding Users}"
+                                          DisplayMemberPath="Fullname"/>
+                            </StackPanel>
+                            
+                            <StackPanel>
+                                <Label Content="Creator" Foreground="{StaticResource TextPassiveColor}"/>
+                                <ComboBox Width="120" SelectedItem="{Binding SelectedCreator}"
+                                          ItemsSource="{Binding Users}"
+                                          DisplayMemberPath="Fullname"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <ListView Grid.Row="2" SelectedItem="{Binding SelectedObjective}" ItemsSource="{Binding Objectives}"/>
+
+                    </Grid>
+                    
+                </TabItem>
+                
+            </TabControl>
+            
+        </Border>
+        
+    </Grid>
+    
+</Window>

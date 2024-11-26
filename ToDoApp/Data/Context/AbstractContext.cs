@@ -24,12 +24,12 @@ namespace Data.Context
                 .HasOne(o => o.Creator)
                 .WithMany(u => u.CreatedObjectives)
                 .HasForeignKey(u => u.CreatorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Objective>()
                 .HasOne(o => o.Assignee)
                 .WithMany(u => u.AssignedObjectives)
                 .HasForeignKey(u => u.AssigneeId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
