@@ -37,7 +37,7 @@ namespace ToDoApplication.ViewModels
                 else
                 {
                     if (InputValidator.IsValid(objective))
-                        ObjectiveService.Update(objective, Title, Description!, SelectedAssigner);
+                        ObjectiveService.Update(objective, Title, Description!, SelectedAssigner, user);
                 }
             });
             CloseCommand = new RelayCommand(o =>

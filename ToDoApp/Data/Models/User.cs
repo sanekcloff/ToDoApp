@@ -42,7 +42,8 @@ namespace Data.Models
 
         // Форматирование
         [NotMapped]
-        public string Fullname => $"{Lastname} {Firstname[0]}. {Middlename[0]}.";
+        public string Fullname => $"{Lastname} {Firstname} {Middlename}";
+        public string sFullname => $"{Lastname} {Firstname[0]}. {Middlename[0]}.";
 
         // Метод создания экземляра
         public static User Create(string lastName, string firstName, string middleName, string login, string password)

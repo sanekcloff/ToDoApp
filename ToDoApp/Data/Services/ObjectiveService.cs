@@ -31,11 +31,12 @@ namespace Data.Services
         }
 
         // Обновление
-        public async static void Update(Objective objective, string title, string description, User assigner)
+        public async static void Update(Objective objective, string title, string description, User assigner, User creator)
         {
             objective.Title = title;
             objective.Description = description;
             objective.Assignee = assigner;
+            objective.Creator = creator;
             try
             {
                 DbWorker.AbstractContext.Objectives.Update(objective);

@@ -32,9 +32,9 @@ namespace ToDoApplication.ViewModels
             {
                 try
                 {
-                    var objective = Objective.Create(SelectedCreator, SelectedAssignee, Title, Description!);
-                    if (InputValidator.IsValid(objective))
-                        ObjectiveService.Add(objective);
+                    var newObjective = Objective.Create(SelectedCreator, SelectedAssignee, Title, Description!);
+                    if (InputValidator.IsValid(newObjective))
+                        ObjectiveService.Add(newObjective);
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +48,7 @@ namespace ToDoApplication.ViewModels
                     try
                     {
                         if (InputValidator.IsValid(SelectedObjective))
-                            ObjectiveService.Update(SelectedObjective, Title, Description!, SelectedAssignee);
+                            ObjectiveService.Update(SelectedObjective, Title, Description!, SelectedAssignee, SelectedCreator);
                     }
                     catch (Exception ex)
                     {
@@ -153,6 +153,95 @@ namespace ToDoApplication.ViewModels
                 }
             });
 
+            AddUserCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    var newUser = User.Create(Lastname, Firstname, Middlename, Login, Password);
+                    if (InputValidator.IsValid(newUser))
+                        UserService.Add(newUser);
+                }
+                catch (Exception ex)
+                {
+                    MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                }
+            });
+            UpdateUserCommand = new RelayCommand(o =>
+            {
+                if (SelectedUser != null)
+                {
+                    try
+                    {
+                        if (InputValidator.IsValid(User.Create(lastname, firstname, middlename, login, password)))
+                            UserService.Update(SelectedUser,Lastname, Firstname, Middlename, Login, Password);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка редактировать пользователя не выбрав его!");
+                }
+            });
+            DeleteUserCommand = new RelayCommand(o =>
+            {
+                if (SelectedUser != null)
+                {
+                    try
+                    {
+                        UserService.Delete(SelectedUser);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType().Name} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка удалить пользователя не выбрав его!");
+                }
+            });
+            HideUserCommand = new RelayCommand(o =>
+            {
+                if (SelectedUser != null)
+                {
+                    try
+                    {
+                        UserService.Hide(SelectedUser);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка скрыть пользователя не выбрав его!");
+                }
+            });
+            ShowUserCommand = new RelayCommand(o =>
+            {
+                if (SelectedUser != null)
+                {
+                    try
+                    {
+                        UserService.Show(SelectedUser);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageNotifier.Warnig($"{ex.GetType()} - {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageNotifier.Error($"{this.GetType().Name} - попытка показать пользователя не выбрав его!");
+                }
+            });
+
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += UpdateLists;
@@ -194,9 +283,33 @@ namespace ToDoApplication.ViewModels
         #region User
         private User selectedUser;
         private List<User> users;
+        private string firstname;
+        private string lastname;
+        private string middlename;
+        private string login;
+        private string password;
 
-        public User SelectedUser { get => selectedUser; set => Set(ref selectedUser, value, nameof(SelectedUser)); }
+        public User SelectedUser 
+        { 
+            get => selectedUser; 
+            set 
+            { 
+                if(Set(ref selectedUser, value, nameof(SelectedUser)) && selectedUser != null)
+                {
+                    Firstname = selectedUser.Firstname;
+                    Lastname = selectedUser.Lastname;
+                    Middlename = selectedUser.Middlename;
+                    Login = selectedUser.Login;
+                    Password = selectedUser.Password;
+                }
+            }  
+        }
         public List<User> Users { get => users; set => Set(ref users, value, nameof(Users)); }
+        public string Firstname { get => firstname; set => Set(ref firstname, value, nameof(Firstname)); }
+        public string Lastname { get => lastname; set => Set(ref lastname, value, nameof(Lastname)); }
+        public string Middlename { get => middlename; set => Set(ref middlename, value, nameof(Middlename)); }
+        public string Login { get => login; set => Set(ref login, value, nameof(Login)); }
+        public string Password { get => password; set => Set(ref password, value, nameof(Password)); }
         #endregion
         #region Methods
         private void UpdateLists(object? sender = null!, EventArgs e = null!)
@@ -207,6 +320,7 @@ namespace ToDoApplication.ViewModels
         #endregion
         #region Commands
         public RelayCommand WindowCloseCommand { get; }
+        #region Objective
         public RelayCommand AddObjectiveCommand { get; }
         public RelayCommand UpdateObjectiveCommand { get; }
         public RelayCommand DeleteObjectiveCommand { get; }
@@ -214,6 +328,14 @@ namespace ToDoApplication.ViewModels
         public RelayCommand ShowObjectiveCommand { get; }
         public RelayCommand ExecuteObjectiveCommand { get; }
         public RelayCommand UndoObjectiveCommand { get; }
+        #endregion
+        #region User
+        public RelayCommand AddUserCommand { get; }
+        public RelayCommand UpdateUserCommand { get; }
+        public RelayCommand DeleteUserCommand { get; }
+        public RelayCommand HideUserCommand { get; }
+        public RelayCommand ShowUserCommand { get; }
+        #endregion
         #endregion
     }
 }
