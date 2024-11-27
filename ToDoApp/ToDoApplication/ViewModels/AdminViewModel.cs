@@ -192,7 +192,6 @@ namespace ToDoApplication.ViewModels
                     try
                     {
                         UserService.Delete(SelectedUser);
-
                     }
                     catch (Exception ex)
                     {
@@ -211,7 +210,6 @@ namespace ToDoApplication.ViewModels
                     try
                     {
                         UserService.Hide(SelectedUser);
-
                     }
                     catch (Exception ex)
                     {

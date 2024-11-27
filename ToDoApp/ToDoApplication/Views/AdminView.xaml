@@ -96,7 +96,7 @@
                             </StackPanel>
                             <StackPanel>
 
-                                <Label Content="Middle" Foreground="{StaticResource TextPassiveColor}"/>
+                                <Label Content="Middlename" Foreground="{StaticResource TextPassiveColor}"/>
                                 <TextBox Text="{Binding Middlename}"/>
 
                             </StackPanel>
