@@ -13,8 +13,7 @@ namespace Data.Context
         private static string SetLocalSqliteConnect()
         {
             var dir = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent;
-            //return $@"Data source={dir}\Data\LocalDB\ToDoAppDb.db";
-            return $@"Data source=\\WS232-00\TestDb\ToDoApp\ToDoAppDb.db";
+            return $@"Data source={dir}\Data\LocalDB\ToDoAppDb.db";
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
