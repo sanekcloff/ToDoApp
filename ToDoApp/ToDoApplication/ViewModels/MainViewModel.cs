@@ -136,6 +136,8 @@ namespace ToDoApplication.ViewModels
         private List<Objective> assignedObjectives = new();
         private Objective selectedCreatedObjective;
         private Objective selectedAssignedObjective;
+        private string searchCreated;
+        private string searchAssignee;
 
         public User CurrentUser 
         { 
@@ -146,6 +148,8 @@ namespace ToDoApplication.ViewModels
         public Objective SelectedAssignedObjective { get => selectedAssignedObjective; set => Set(ref selectedAssignedObjective, value, nameof(SelectedAssignedObjective)); }
         public List<Objective> CreatedObjectives { get => createdObjectives; set => Set(ref createdObjectives, value, nameof(CreatedObjectives)); }
         public List<Objective> AssignedObjectives { get => assignedObjectives; set => Set(ref assignedObjectives, value, nameof(AssignedObjectives)); }
+        public string SearchCreated { get => searchCreated; set => Set(ref searchCreated, value, nameof(SearchCreated)); }
+        public string SearchAssignee { get => searchAssignee; set => Set(ref searchAssignee, value, nameof(SearchAssignee)); }
 
         public RelayCommand CreateCommand { get; }
         public RelayCommand UpdateCommand { get; }
@@ -154,11 +158,24 @@ namespace ToDoApplication.ViewModels
         public RelayCommand ShowCommand { get; }
         public RelayCommand ExecuteCommand { get; }
         public RelayCommand WindowCloseCommand { get; }
+        
 
         private void UpdateLists(object? sender = null!, EventArgs e = null!)
         {
-            CreatedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Creator == CurrentUser).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
+            var objectives = DbWorker.AbstractContext.Objectives.Where(co => co.Creator == CurrentUser).Include(o => o.Creator).Include(o => o.Assignee).ToList();
+            CreatedObjectives = SearchCreatedObjectives(objectives).ToList();
             AssignedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Assignee == CurrentUser && co.IsDeleted==false).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
+        }
+        private ICollection<Objective> SearchCreatedObjectives(ICollection<Objective> objectives)
+        {
+            if (string.IsNullOrEmpty(searchCreated))
+            {
+                return objectives;
+            }
+            else
+            {
+                return objectives.Where(o=>o.Title.ToLower().Contains(searchCreated.ToLower())).ToList();
+            }
         }
     }
 }

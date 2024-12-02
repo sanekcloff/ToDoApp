@@ -65,24 +65,35 @@
 
                     <Grid>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                        <TextBox HorizontalAlignment="Left" Width="400" Text="{Binding SearchCreated, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            <Button Content="Create" Command="{Binding CreateCommand}"/>
-                            <Button Content="Update" Command="{Binding UpdateCommand}"/>
-                            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
-                            <Button Content="Show"  Command="{Binding ShowCommand}"/>
-                            <Button Content="Hide"  Command="{Binding HideCommand}"/>
+                        <Grid Grid.Row="1">
 
-                        </StackPanel>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
 
+                                <Button Content="Create" Command="{Binding CreateCommand}"/>
+                                <Button Content="Update" Command="{Binding UpdateCommand}"/>
+                                <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+                                <Button Content="Show"  Command="{Binding ShowCommand}"/>
+                                <Button Content="Hide"  Command="{Binding HideCommand}"/>
+
+                            </StackPanel>
+
+                            <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
+SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                        </Grid>
 
                     </Grid>
 
