@@ -60,8 +60,7 @@ namespace LogHandler
         {
             try
             {
-                loggerFile.Close();
-                loggerFile.CloseMainWindow();
+                loggerFile.Kill();
             }
             catch (Exception ex)
             {

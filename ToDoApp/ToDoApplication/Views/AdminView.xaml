@@ -67,6 +67,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="60"/>
+                            <RowDefinition Height="35"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
@@ -115,7 +116,9 @@
 
                         </StackPanel>
 
-                        <ListView Grid.Row="2" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" Style="{StaticResource Users}"/>
+                        <TextBox Grid.Row="2" HorizontalAlignment="Left" Width="350" Text="{Binding SearchUser, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ListView Grid.Row="3" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" Style="{StaticResource Users}"/>
 
                     </Grid>
                     
@@ -128,6 +131,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="60"/>
+                            <RowDefinition Height="35"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
@@ -158,20 +162,22 @@
                             <StackPanel>
                                 <Label Content="Assignee" Foreground="{StaticResource TextPassiveColor}"/>
                                 <ComboBox Width="120" SelectedItem="{Binding SelectedAssignee}"
-                                          ItemsSource="{Binding Users}"
+                                          ItemsSource="{Binding CmbUsers}"
                                           DisplayMemberPath="sFullname"/>
                             </StackPanel>
                             
                             <StackPanel>
                                 <Label Content="Creator" Foreground="{StaticResource TextPassiveColor}"/>
                                 <ComboBox Width="120" SelectedItem="{Binding SelectedCreator}"
-                                          ItemsSource="{Binding Users}"
+                                          ItemsSource="{Binding CmbUsers}"
                                           DisplayMemberPath="sFullname"/>
                             </StackPanel>
 
                         </StackPanel>
 
-                        <ListView Grid.Row="2" SelectedItem="{Binding SelectedObjective}" ItemsSource="{Binding Objectives}"/>
+                        <TextBox Grid.Row="2" HorizontalAlignment="Left" Width="350" Text="{Binding SearchObjective, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ListView Grid.Row="3" SelectedItem="{Binding SelectedObjective}" ItemsSource="{Binding Objectives}"/>
 
                     </Grid>
                     

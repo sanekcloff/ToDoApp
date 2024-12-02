@@ -22,27 +22,27 @@
                 <Style TargetType="Thumb">
 
                     <Setter Property="Template">
-                        
+
                         <Setter.Value>
 
                             <ControlTemplate TargetType="Thumb">
-                                
+
                                 <Border Background="Transparent">
-                                    
+
                                     <Path Data="{StaticResource Resize}" Fill="{StaticResource TextPassiveColor}" Stretch="Uniform"/>
-                                    
+
                                 </Border>
 
                             </ControlTemplate>
-                            
+
                         </Setter.Value>
-                        
+
                     </Setter>
-                    
+
                 </Style>
-                
+
             </Thumb.Style>
-            
+
         </Thumb>
 
         <StackPanel Panel.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
@@ -58,7 +58,7 @@
         CornerRadius="10"
         x:Name="DragBorder"
         MouseLeftButtonDown="DragBorder_MouseLeftButtonDown">
-            
+
             <TabControl Background="Transparent" BorderBrush="Transparent" Margin="20">
 
                 <TabItem Header="Created">
@@ -76,7 +76,8 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="163*"/>
+                                <ColumnDefinition Width="531*"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
@@ -90,7 +91,7 @@
                             </StackPanel>
 
                             <ListView Grid.Column="1" ItemsSource="{Binding CreatedObjectives, UpdateSourceTrigger=PropertyChanged}"
-SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
 
 
                         </Grid>
@@ -103,19 +104,30 @@ SelectedItem="{Binding SelectedCreatedObjective, UpdateSourceTrigger=PropertyCha
 
                     <Grid>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                        <TextBox HorizontalAlignment="Left" Width="400" Text="{Binding SearchAssignee, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
+                        <Grid Grid.Row="1">
 
-                        </StackPanel>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+
+                                <Button Content="Execute" Command="{Binding ExecuteCommand}"/>
+
+                            </StackPanel>
+
+                            <ListView Grid.Column="1" ItemsSource="{Binding AssignedObjectives, UpdateSourceTrigger=PropertyChanged}"
+SelectedItem="{Binding SelectedAssignedObjective, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </Grid>
 
                     </Grid>
 
