@@ -162,9 +162,10 @@ namespace ToDoApplication.ViewModels
 
         private void UpdateLists(object? sender = null!, EventArgs e = null!)
         {
-            var objectives = DbWorker.AbstractContext.Objectives.Where(co => co.Creator == CurrentUser).Include(o => o.Creator).Include(o => o.Assignee).ToList();
-            CreatedObjectives = SearchCreatedObjectives(objectives).ToList();
-            AssignedObjectives = DbWorker.AbstractContext.Objectives.Where(co=> co.Assignee == CurrentUser && co.IsDeleted==false).Include(o=>o.Creator).Include(o=>o.Assignee).ToList();
+            var createdOjectives = DbWorker.AbstractContext.Objectives.Where(co => co.Creator == CurrentUser).Include(o => o.Creator).Include(o => o.Assignee).ToList();
+            var assigneeObjectives = DbWorker.AbstractContext.Objectives.Where(co => co.Assignee == CurrentUser && co.IsDeleted == false).Include(o => o.Creator).Include(o => o.Assignee).ToList();
+            CreatedObjectives = SearchCreatedObjectives(createdOjectives).ToList();
+            AssignedObjectives = SearchAssigneeObjectives(assigneeObjectives).ToList();
         }
         private ICollection<Objective> SearchCreatedObjectives(ICollection<Objective> objectives)
         {
@@ -174,7 +175,18 @@ namespace ToDoApplication.ViewModels
             }
             else
             {
-                return objectives.Where(o=>o.Title.ToLower().Contains(searchCreated.ToLower())).ToList();
+                return objectives.Where(o=>o.Title.ToLower().Contains(searchCreated.ToLower()) | o.Description!.ToLower().Contains(searchCreated.ToLower())).ToList();
+            }
+        }
+        private ICollection<Objective> SearchAssigneeObjectives(ICollection<Objective> objectives)
+        {
+            if (string.IsNullOrEmpty(searchAssignee))
+            {
+                return objectives;
+            }
+            else
+            {
+                return objectives.Where(o => o.Title.ToLower().Contains(searchAssignee.ToLower()) | o.Description!.ToLower().Contains(searchAssignee.ToLower())).ToList();
             }
         }
     }

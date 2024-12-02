@@ -40,7 +40,7 @@ namespace ToDoApplication.Handlers
             }
             else
             {
-                MessageNotifier.Error(Logger.AddLog($"Ввод пользователя {user.GetType().Name} некорректен!"));
+                MessageNotifier.Error($"Ввод пользователя {user.GetType().Name} некорректен!");
                 return false;
             }
         }
@@ -54,7 +54,7 @@ namespace ToDoApplication.Handlers
             }
             else
             {
-                MessageNotifier.Error(Logger.AddLog($"Данные задачи не корректны!"));
+                MessageNotifier.Error($"Данные задачи не корректны!");
                 return false;
             }
         }

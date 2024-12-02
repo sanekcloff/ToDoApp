@@ -244,6 +244,8 @@ namespace ToDoApplication.ViewModels
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += UpdateLists;
             timer.Start();
+
+            users = users.Where(u => u.Fullname.ToLower().Contains("Aboba")).ToList();
         }
 
         #region Session
@@ -257,6 +259,7 @@ namespace ToDoApplication.ViewModels
         private User selectedCreator;
         private string title;
         private string description;
+        private string searchObjective;
 
         public Objective SelectedObjective 
         { 
@@ -277,15 +280,18 @@ namespace ToDoApplication.ViewModels
         public User SelectedCreator { get => selectedCreator; set => Set(ref selectedCreator, value, nameof(SelectedCreator)); }
         public string Title { get => title; set => Set(ref title, value, nameof(Title)); }
         public string Description { get => description; set => Set(ref description, value, nameof(Description)); }
+        public string SearchObjective { get => searchObjective; set => Set(ref searchObjective, value, nameof(SearchObjective)); }
         #endregion
         #region User
         private User selectedUser;
         private List<User> users;
+        private List<User> cmbUsers;
         private string firstname;
         private string lastname;
         private string middlename;
         private string login;
         private string password;
+        private string searchUser;
 
         public User SelectedUser 
         { 
@@ -303,17 +309,44 @@ namespace ToDoApplication.ViewModels
             }  
         }
         public List<User> Users { get => users; set => Set(ref users, value, nameof(Users)); }
+        public List<User> CmbUsers { get => cmbUsers; set => Set(ref cmbUsers, value, nameof(CmbUsers)); }
         public string Firstname { get => firstname; set => Set(ref firstname, value, nameof(Firstname)); }
         public string Lastname { get => lastname; set => Set(ref lastname, value, nameof(Lastname)); }
         public string Middlename { get => middlename; set => Set(ref middlename, value, nameof(Middlename)); }
         public string Login { get => login; set => Set(ref login, value, nameof(Login)); }
         public string Password { get => password; set => Set(ref password, value, nameof(Password)); }
+        public string SearchUser { get => searchUser; set => Set(ref searchUser, value, nameof(SearchUser)); }
         #endregion
         #region Methods
         private void UpdateLists(object? sender = null!, EventArgs e = null!)
         {
-            Objectives = DbWorker.AbstractContext.Objectives.ToList();
-            Users = DbWorker.AbstractContext.Users.ToList();
+            var objectives = DbWorker.AbstractContext.Objectives.ToList();
+            var users = DbWorker.AbstractContext.Users.ToList();
+            Objectives = SearchObjectives(objectives).ToList();
+            Users = SearchUsers(users).ToList();
+            cmbUsers = users;
+        }
+        private ICollection<User> SearchUsers(ICollection<User> users)
+        {
+            if (string.IsNullOrEmpty(searchUser))
+            {
+                return users;
+            }
+            else
+            {
+                return users.Where(u => u.Fullname.ToLower().Contains(searchUser.ToLower())).ToList();
+            }
+        }
+        private ICollection<Objective> SearchObjectives(ICollection<Objective> objectives)
+        {
+            if (string.IsNullOrEmpty(searchObjective))
+            {
+                return objectives;
+            }
+            else
+            {
+                return objectives.Where(o => o.Title.ToLower().Contains(searchObjective.ToLower()) | o.Description!.ToLower().Contains(searchObjective.ToLower())).ToList();
+            }
         }
         #endregion
         #region Commands
@@ -333,6 +366,7 @@ namespace ToDoApplication.ViewModels
         public RelayCommand DeleteUserCommand { get; }
         public RelayCommand HideUserCommand { get; }
         public RelayCommand ShowUserCommand { get; }
+        
         #endregion
         #endregion
     }

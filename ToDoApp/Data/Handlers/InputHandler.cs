@@ -25,7 +25,7 @@ namespace Data.Handlers
                 && Regex.IsMatch(user.Lastname, $"^[{ENG_PATTERN}{RU_PATTERN}]+$")
                 && Regex.IsMatch(user.Middlename, $"^[{ENG_PATTERN}{RU_PATTERN}]+$")
                 && Regex.IsMatch(user.Login, $"^[{ENG_PATTERN}{NUM_PATTERN}]+$")
-                && Regex.IsMatch(user.Login, $"^[{ENG_PATTERN}{NUM_PATTERN}]+$");
+                && Regex.IsMatch(user.Password, $"^[{ENG_PATTERN}{NUM_PATTERN}]+$");
         }
 
         // Метод для проверки полей объекта Objective на корректность
