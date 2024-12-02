@@ -127,5 +127,97 @@
         </Setter>
 
     </Style>
-    
+
+    <Style x:Key="Users" TargetType="ListView">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Background="{StaticResource SecondaryColor}"
+                                    x:Name="IsDeletedStatus"
+                                    Opacity="1"
+                                    CornerRadius="15"
+                                    Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="1">
+
+                                            <StackPanel x:Name="Elements" Orientation="Vertical" TextBlock.Foreground="{StaticResource TextPassiveColor}"
+                                                    Margin="10,5">
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Executor}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="ФИО" VerticalAlignment="Top"/>
+
+                                                    <TextBlock Text="{Binding Fullname}" FontSize="20" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Star}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Логин"/>
+
+                                                    <TextBlock Text="{Binding Login}" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <Path Data="{StaticResource Star}" Fill="{StaticResource AccentColor}" Stretch="Uniform" Width="20" Margin="4,4,10,4" ToolTip="Пароль"/>
+
+                                                    <TextBlock Text="{Binding Password}" VerticalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                            </StackPanel>
+
+                                        </Border>
+
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+
+                                    <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+
+                                        <Setter TargetName="IsDeletedStatus" Property="Opacity" Value="0.5"/>
+
+                                    </DataTrigger>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+
+                                        <Setter TargetName="Elements" Property="TextBlock.Foreground" Value="{StaticResource TextActiveColor}"/>
+
+                                    </Trigger>
+
+                                    <Trigger Property="IsSelected" Value="True">
+
+                                        <Setter TargetName="IsDeletedStatus" Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+
+                                        <Setter TargetName="IsDeletedStatus" Property="BorderThickness" Value="0,0,2,2"/>
+
+                                    </Trigger>
+
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
 </ResourceDictionary>

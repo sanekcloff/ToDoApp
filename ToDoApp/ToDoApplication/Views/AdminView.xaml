@@ -8,7 +8,7 @@
         Title="AdminView" Height="450" Width="800"
         WindowStyle="None"
         Background="Transparent"
-        AllowDrop="True"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Icon="{StaticResource Icon}"
         ResizeMode="NoResize">
@@ -61,6 +61,63 @@
             <TabControl Background="Transparent" BorderThickness="0" Margin="20">
 
                 <TabItem Header="Users">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                            <Button Content="Add" Command="{Binding AddUserCommand}"/>
+                            <Button Content="Update" Command="{Binding UpdateUserCommand}"/>
+                            <Button Content="Delete" Command="{Binding DeleteUserCommand}"/>
+                            <Button Content="Hide" Command="{Binding HideUserCommand}"/>
+                            <Button Content="Show" Command="{Binding ShowUserCommand}"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                            <StackPanel>
+
+                                <Label Content="Lastname" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Lastname}"/>
+                                
+                            </StackPanel>
+                            <StackPanel>
+
+                                <Label Content="Firstname" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Firstname}"/>
+
+                            </StackPanel>
+                            <StackPanel>
+
+                                <Label Content="Middlename" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Middlename}"/>
+
+                            </StackPanel>
+                            <StackPanel>
+
+                                <Label Content="Login" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Login}"/>
+
+                            </StackPanel>
+                            <StackPanel>
+
+                                <Label Content="Password" Foreground="{StaticResource TextPassiveColor}"/>
+                                <TextBox Text="{Binding Password}"/>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <ListView Grid.Row="2" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" Style="{StaticResource Users}"/>
+
+                    </Grid>
                     
                 </TabItem>
 
@@ -102,14 +159,14 @@
                                 <Label Content="Assignee" Foreground="{StaticResource TextPassiveColor}"/>
                                 <ComboBox Width="120" SelectedItem="{Binding SelectedAssignee}"
                                           ItemsSource="{Binding Users}"
-                                          DisplayMemberPath="Fullname"/>
+                                          DisplayMemberPath="sFullname"/>
                             </StackPanel>
                             
                             <StackPanel>
                                 <Label Content="Creator" Foreground="{StaticResource TextPassiveColor}"/>
                                 <ComboBox Width="120" SelectedItem="{Binding SelectedCreator}"
                                           ItemsSource="{Binding Users}"
-                                          DisplayMemberPath="Fullname"/>
+                                          DisplayMemberPath="sFullname"/>
                             </StackPanel>
 
                         </StackPanel>
